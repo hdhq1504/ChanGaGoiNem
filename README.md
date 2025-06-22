@@ -1,16 +1,16 @@
-# ChanGaGoiNem - Website Bán Đồ Ăn
+# Website Chăn Ga Gối Nệm
 
 ## Công nghệ sử dụng
 
 - **Frontend:**
   - HTML/CSS
   - JavaScript
-  - Bootstrap (UI Framework)
+  - Bootstrap 5 (UI Framework)
 
 - **Backend:**
   - ASP.NET Core (C#)
   - Entity Framework Core
-  - SQL Server
+  - Microsoft SQL Server
 
 ## Chức năng chính
 
