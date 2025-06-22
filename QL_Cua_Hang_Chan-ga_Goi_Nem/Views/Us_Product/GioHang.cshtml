@@ -1,0 +1,175 @@
+﻿@model List<QL_Cua_Hang_Chan_ga_Goi_Nem.Models.User_Md.CartItem>
+@{
+    ViewBag.Title = "GioHang";
+    Layout = "~/Views/Shared/User_Layout.cshtml";
+}
+
+<div class="container">
+    <a href="~/Us_Product/HienThiSanPhamNem" style="font-size:40px; text-decoration:none"><i class='bx bx-chevron-left'></i></a>
+    @if (Model.Any())
+    {
+        <table class="table" style="background-color: #2D2E7F;">
+            <thead>
+                <tr>
+                    <th>Hình ảnh</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Kích thước</th>
+                    <th>Màu Sắc</th>
+                    <th>Độ dày</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><img src="@Url.Content("~/Content/Hinh_Anh/" + item.HinhAnh)" width="50" /></td>
+                        <td>@item.TenSanPham</td>
+                        <td>@item.KichThuoc</td>
+                        <td>@item.MauSac</td>
+                        <td>@item.DoDay cm</td>
+                        <td>@item.Gia.ToString("N0") đ</td>
+                        <td>
+                            <form class="p-0" style="width:fit-content;" method="post" action="@Url.Action("CapNhatGioHang", "Us_Product")">
+                                <input type="hidden" name="id" value="@item.SanPhamId" />
+                                <input type="number" name="soLuong" value="@item.SoLuong" min="1" />
+                                <button type="submit" class="btn btn-primary btn-sm">Cập nhật</button>
+                            </form>
+                        </td>
+                        <td>@item.ThanhTien.ToString("N0") đ</td>
+                        <td>
+                            <a href="@Url.Action("XoaKhoiGio", "Us_Product", new { id = item.SanPhamId })" class="btn btn-danger btn-sm">Xóa</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <h4>Tổng cộng: @Model.Sum(i => i.ThanhTien).ToString("N0") đ</h4>
+
+        <!-- Nút Mua ngay -->
+        <a href="@Url.Action("ThanhToan", "Us_Product")" class="btn" style="color: white; background: red; cursor: pointer; width: 200px;">
+            Mua ngay
+        </a>
+    }
+    else
+    {
+        <p class="GioHangNull">Giỏ hàng của bạn đang trống.</p>
+    }
+
+</div>
+
+
+<style>
+
+    /* Tiêu đề chính */
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    /* Bảng giỏ hàng */
+    table.table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+        /* Tiêu đề bảng */
+        table.table thead th {
+            background-color: #2D2E7F;
+            color: white;
+            text-align: left;
+            padding: 12px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        /* Hàng dữ liệu */
+        table.table tbody tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+            table.table tbody tr:hover {
+                background-color: #f1f1f1;
+            }
+
+        /* Ô dữ liệu */
+        table.table tbody td {
+            padding: 12px;
+            vertical-align: middle;
+            text-align: left;
+        }
+
+            /* Hình ảnh sản phẩm */
+            table.table tbody td img {
+                display: block;
+                border-radius: 4px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+    /* Nút cập nhật */
+    .btn-primary.btn-sm {
+        background-color: #007bff;
+        border: none;
+        color: white;
+        padding: 5px 10px;
+        font-size: 14px;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+
+        .btn-primary.btn-sm:hover {
+            background-color: #0056b3;
+        }
+
+    /* Nút xóa */
+    .btn-danger.btn-sm {
+        background-color: #dc3545;
+        border: none;
+        color: white;
+        padding: 5px 10px;
+        font-size: 14px;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+
+        .btn-danger.btn-sm:hover {
+            background-color: #b21f2d;
+        }
+
+    /* Tổng cộng */
+    h4 {
+        text-align: right;
+        color: #333;
+        font-size: 18px;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+
+    /* Input số lượng */
+    input[type="number"] {
+        width: 100px;
+        padding: 5px;
+        font-size: 14px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        text-align: center;
+    }
+
+        input[type="number"]:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+        }
+
+    /* Giỏ hàng trống */
+    .GioHangNull {
+        text-align: center;
+        font-size: 16px;
+        color: #555;
+        margin: 20px 0;
+    }
+</style>
