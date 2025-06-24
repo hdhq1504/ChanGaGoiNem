@@ -5,72 +5,119 @@
     Layout = "~/Views/Shared/Admin_Layout.cshtml";
 }
 
-<h2 class="text-center my-4">Báo Cáo Doanh Thu</h2>
-
-<!-- Form lọc theo thời gian -->
-@using (Html.BeginForm("Index", "Ad_Revenue", FormMethod.Get))
-{
-    <div class="row mb-4">
-        <div class="col-md-4">
-            <label for="startDate" class="form-label">Từ Ngày:</label>
-            <input type="date" id="startDate" name="startDate" class="form-control" />
-        </div>
-        <div class="col-md-4">
-            <label for="endDate" class="form-label">Đến Ngày:</label>
-            <input type="date" id="endDate" name="endDate" class="form-control" />
-        </div>
-        <div class="col-md-4 d-flex align-items-end">
-            <button type="submit" class="btn btn-primary w-100">Lọc</button>
+<div class="container-fluid revenue-admin-container">
+    <div class="admin-header d-flex flex-column flex-md-row align-items-center justify-content-between mb-4 p-3 rounded-3 shadow-sm bg-white">
+        <div class="d-flex align-items-center gap-2 mb-2 mb-md-0">
+            <i class='bx bx-bar-chart-square fs-2 text-primary'></i>
+            <h2 class="m-0 fw-bold text-primary">Báo Cáo Doanh Thu</h2>
         </div>
     </div>
-}
 
-<!-- Bảng báo cáo doanh thu -->
-<table class="table table-bordered table-striped table-hover">
-    <thead class="thead-dark">
-        <tr>
-            <th class="text-center" scope="col">Mã Hóa Đơn</th>
-            <th class="text-center" scope="col">Ngày Đặt</th>
-            <th class="text-center" scope="col">Tổng Tiền</th>
-            <th class="text-center" scope="col">Trạng Thái</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var hoaDon in Model)
-        {
-            <tr>
-                <td class="text-center">@hoaDon.HoaDonId</td>
-                <td class="text-center">@hoaDon.NgayLap</td>
-                <td class="text-end">@hoaDon.TongTien.ToString("N0")</td>
-                <td class="text-center">
-                    @if (hoaDon.TrangThai == "da_giao")
-                    {
-                        <span class="text-success">Đã Hoàn Thành</span>
-                    }
-                    else
-                    {
-                        @hoaDon.TrangThai
-                    }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <!-- Form lọc theo thời gian -->
+    @using (Html.BeginForm("Index", "Ad_Revenue", FormMethod.Get))
+    {
+        <div class="row g-3 mb-4 justify-content-start align-items-end">
+            <div class="col-md-4">
+                <label for="startDate" class="form-label mb-1">Từ Ngày</label>
+                <input type="date" id="startDate" name="startDate" class="form-control" value="@Request.QueryString["startDate"]" />
+            </div>
+            <div class="col-md-4">
+                <label for="endDate" class="form-label mb-1">Đến Ngày</label>
+                <input type="date" id="endDate" name="endDate" class="form-control" value="@Request.QueryString["endDate"]" />
+            </div>
+            <div class="col-md-1 text-end">
+                <button type="submit" class="btn btn-primary d-flex justify-content-center align-items-center gap-2 w-100">
+                    <i class='bx bx-filter-alt'></i> Lọc
+                </button>
+            </div>
+        </div>
+    }
 
-<!-- Hiển thị tổng tiền -->
-<div class="alert alert-info text-center">
-    <strong>Tổng Tiền: @ViewBag.TongTien.ToString("N0")</strong>
+    <!-- Bảng báo cáo doanh thu -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle revenue-table shadow-sm rounded-3 overflow-hidden">
+            <thead class="table-light">
+                <tr>
+                    <th class="text-center">Mã Hóa Đơn</th>
+                    <th class="text-center">Ngày Đặt</th>
+                    <th class="text-center">Tổng Tiền</th>
+                    <th class="text-center">Trạng Thái</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var hoaDon in Model)
+                {
+                    <tr>
+                        <td class="text-center">@hoaDon.HoaDonId</td>
+                        <td class="text-center">@hoaDon.NgayLap</td>
+                        <td class="text-end fw-semibold text-primary">@hoaDon.TongTien.ToString("N0")</td>
+                        <td class="text-center">
+                            @if (hoaDon.TrangThai == "da_giao")
+                            {
+                                <span class="badge bg-success text-white px-3 py-2 fs-6">Đã Hoàn Thành</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary px-3 py-2 fs-6">@hoaDon.TrangThai</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Hiển thị tổng tiền -->
+    <div class="alert alert-info text-center fw-bold fs-5 mt-4">
+        Tổng Tiền: @ViewBag.TongTien.ToString("N0")
+    </div>
 </div>
 
 <style>
-    /* Tùy chỉnh màu nền cho bảng */
-    .table thead th {
-        background-color: #007bff;
-        color: white;
+    .revenue-admin-container {
+        margin: 0 auto;
     }
-
-    /* Tùy chỉnh form nhập liệu */
-    .form-label {
+    .admin-header {
+        background: linear-gradient(90deg, #e3e9ff 0%, #f8fafd 100%);
+    }
+    .admin-header h2 {
+        font-size: 2rem;
         font-weight: bold;
+        color: #2D2E7F;
+    }
+    .revenue-table {
+        border-radius: 12px;
+        overflow: hidden;
+        background: #fff;
+    }
+    .revenue-table th, .revenue-table td {
+        vertical-align: middle;
+        text-align: center;
+    }
+    .revenue-table thead th {
+        background: #f1f3fa;
+        color: #2D2E7F;
+        font-weight: 600;
+        border-bottom: 2px solid #e3e9ff;
+    }
+    .revenue-table tbody tr {
+        transition: background 0.2s;
+    }
+    .revenue-table tbody tr:hover {
+        background: #f5f7ff;
+    }
+    .badge {
+        font-size: 1rem;
+        border-radius: 8px;
+        letter-spacing: 0.5px;
+    }
+    @@media (max-width: 768px) {
+        .admin-header, .revenue-admin-container {
+            padding: 10px;
+        }
+        .revenue-table th, .revenue-table td {
+            font-size: 0.95rem;
+            padding: 8px;
+        }
     }
 </style>

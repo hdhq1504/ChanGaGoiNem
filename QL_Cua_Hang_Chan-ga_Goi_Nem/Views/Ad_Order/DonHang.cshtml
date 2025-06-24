@@ -4,76 +4,150 @@
     Layout = "~/Views/Shared/Admin_Layout.cshtml";
 }
 
-<h2 class="mb-4">Danh Sách Hóa Đơn</h2>
-
-<!-- Form lọc -->
-<form class="row g-3 mb-4" method="get" action="@Url.Action("DonHang")">
-    <div class="col-md-3">
-        <label for="ngayBatDau" class="form-label">Từ Ngày</label>
-        <input type="date" name="ngayBatDau" id="ngayBatDau" class="form-control" value="@Request.QueryString["ngayBatDau"]" />
-    </div>
-    <div class="col-md-3">
-        <label for="ngayKetThuc" class="form-label">Đến Ngày</label>
-        <input type="date" name="ngayKetThuc" id="ngayKetThuc" class="form-control" value="@Request.QueryString["ngayKetThuc"]" />
-    </div>
-    <div class="col-md-3">
-        <label for="trangThai" class="form-label">Trạng Thái</label>
-        <select name="trangThai" id="trangThai" class="form-control">
-            <option value="">Tất Cả</option>
-            <option value="cho_xac_nhan"
-                    @if (Request.QueryString["trangThai"] == "cho_xac_nhan") { @: selected
-                    }>
-                Chờ Xác Nhận
-            </option>
-            <option value="da_giao"
-                    @if (Request.QueryString["trangThai"] == "da_giao") { @: selected
-                    }>
-                Đã Giao
-            </option>
-        </select>
-    </div>
-    <div class="col-md-3">
-        <label for="tenTimKiem" class="form-label">Tìm Kiếm Theo Tên</label>
-        <input type="text" name="tenTimKiem" id="tenTimKiem" class="form-control" value="@Request.QueryString["tenTimKiem"]" />
+<div class="container-fluid order-admin-container">
+    <div class="admin-header d-flex flex-column flex-md-row align-items-center justify-content-between mb-4 p-3 rounded-3 shadow-sm bg-white">
+        <div class="d-flex align-items-center gap-2 mb-2 mb-md-0">
+            <i class='bx bx-receipt fs-2 text-primary'></i>
+            <h2 class="m-0 fw-bold text-primary">Danh Sách Hóa Đơn</h2>
+        </div>
     </div>
 
-    <div class="col-md-12 d-flex justify-content-end">
-        <button type="submit" class="btn btn-primary" style="border-radius: 5px; box-shadow: 0 0 5px rgba(0,0,0,0.1);">Lọc</button>
-    </div>
-</form>
+    <!-- Form lọc -->
+    <form class="row g-3 mb-4 align-items-end" method="get" action="@Url.Action("DonHang")">
+        <div class="col-md-2">
+            <label for="ngayBatDau" class="form-label mb-1">Từ Ngày</label>
+            <input type="date" name="ngayBatDau" id="ngayBatDau" class="form-control" value="@Request.QueryString["ngayBatDau"]" />
+        </div>
+        <div class="col-md-2">
+            <label for="ngayKetThuc" class="form-label mb-1">Đến Ngày</label>
+            <input type="date" name="ngayKetThuc" id="ngayKetThuc" class="form-control" value="@Request.QueryString["ngayKetThuc"]" />
+        </div>
+        <div class="col-md-3">
+            <label for="trangThai" class="form-label mb-1">Trạng Thái</label>
+            <select name="trangThai" id="trangThai" class="form-select">
+                <option value="">Tất Cả</option>
+                <option value="cho_xac_nhan" @(Request.QueryString["trangThai"] == "cho_xac_nhan" ? "selected" : "")>Chờ Xác Nhận</option>
+                <option value="da_giao" @(Request.QueryString["trangThai"] == "da_giao" ? "selected" : "")>Đã Giao</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="tenTimKiem" class="form-label mb-1">Tìm Kiếm Theo Tên</label>
+            <input type="text" name="tenTimKiem" id="tenTimKiem" class="form-control" value="@Request.QueryString["tenTimKiem"]" />
+        </div>
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-primary px-4 d-flex align-items-center gap-2">
+                <i class='bx bx-filter-alt'></i> Lọc
+            </button>
+        </div>
+    </form>
 
-<!-- Bảng danh sách hóa đơn -->
-<table class="table table-hover table-bordered mt-4">
-    <thead class="thead-dark">
-        <tr>
-            <th class="text-center" scope="col">Tên Người Dùng</th>
-            <th class="text-center" scope="col">Ngày Lập</th>
-            <th class="text-center" scope="col">Tổng Tiền</th>
-            <th class="text-center" scope="col">Trạng Thái</th>
-            <th class="text-center" scope="col">Hành Động</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td class="text-center">@item.TenNguoiDung</td>
-                <td class="text-center">@item.NgayLap</td>
-                <td class="text-end">@item.TongTien.ToString("N0")</td>
-                <td class="text-center">
-                    @if (item.TrangThai == "cho_xac_nhan")
-                    {
-                        <span class="badge bg-warning text-dark">Chờ Xác Nhận</span>
-                    }
-                    else if (item.TrangThai == "da_giao")
-                    {
-                        <span class="badge bg-success text-white">Đã Giao</span>
-                    }
-                </td>
-                <td class="text-center">
-                    @Html.ActionLink("Xem Chi Tiết", "Details", new { id = item.HoaDonId }, new { @class = "btn btn-info btn-sm" })
-                </td>
-            </tr>
+    <!-- Bảng danh sách hóa đơn -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle order-table shadow-sm rounded-3 overflow-hidden">
+            <thead class="table-light">
+                <tr>
+                    <th class="text-center">Tên Người Dùng</th>
+                    <th class="text-center">Ngày Lập</th>
+                    <th class="text-center">Tổng Tiền</th>
+                    <th class="text-center">Trạng Thái</th>
+                    <th class="text-center">Hành Động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-center">@item.TenNguoiDung</td>
+                        <td class="text-center">@item.NgayLap</td>
+                        <td class="text-end fw-semibold text-primary">@item.TongTien.ToString("N0")</td>
+                        <td class="text-center">
+                            @if (item.TrangThai == "cho_xac_nhan")
+                            {
+                                <span class="badge bg-warning text-dark px-3 py-2 fs-6">Chờ Xác Nhận</span>
+                            }
+                            else if (item.TrangThai == "da_giao")
+                            {
+                                <span class="badge bg-success text-white px-3 py-2 fs-6">Đã Giao</span>
+                            }
+                        </td>
+                        <td class="text-center">
+                            <a href="@Url.Action("Details", new { id = item.HoaDonId })" class="btn btn-sm btn-outline-info d-flex align-items-center gap-1 justify-content-center" title="Xem chi tiết">
+                                <i class='bx bx-info-circle'></i> Chi Tiết
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .order-admin-container {
+        margin: 0 auto;
+    }
+
+    .admin-header {
+        background: linear-gradient(90deg, #e3e9ff 0%, #f8fafd 100%);
+    }
+
+    .admin-header h2 {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #2D2E7F;
+    }
+
+    .order-table {
+        border-radius: 12px;
+        overflow: hidden;
+        background: #fff;
+    }
+
+    .order-table th, .order-table td {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .order-table thead th {
+        background: #f1f3fa;
+        color: #2D2E7F;
+        font-weight: 600;
+        border-bottom: 2px solid #e3e9ff;
+    }
+
+    .order-table tbody tr {
+        transition: background 0.2s;
+    }
+
+    .order-table tbody tr:hover {
+        background: #f5f7ff;
+    }
+
+    .badge {
+        font-size: 1rem;
+        border-radius: 8px;
+        letter-spacing: 0.5px;
+    }
+
+    .btn-outline-info {
+        border-radius: 20px;
+        padding: 4px 14px;
+        font-size: 1rem;
+        transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-outline-info:hover {
+        background: #0dcaf0;
+        color: #fff;
+    }
+
+    @@media (max-width: 768px) {
+        .admin-header, .order-admin-container {
+            padding: 10px;
         }
-    </tbody>
-</table>
+        .order-table th, .order-table td {
+            font-size: 0.95rem;
+            padding: 8px;
+        }
+    }
+</style>

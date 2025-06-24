@@ -5,58 +5,65 @@
     Layout = "~/Views/Shared/Admin_Layout.cshtml";
 }
 
-<div class="container">
-    <h2 class="text-center my-4">Danh Sách Sản Phẩm</h2>
+<div class="container-fluid product-admin-container">
+    <div class="admin-header d-flex flex-column flex-md-row align-items-center justify-content-between mb-4 p-3 rounded-3 shadow-sm bg-white">
+        <div class="d-flex align-items-center gap-2 mb-2 mb-md-0">
+            <i class='bx bx-package fs-2 text-primary'></i>
+            <h2 class="m-0 fw-bold text-primary">Danh Sách Sản Phẩm</h2>
+        </div>
+    </div>
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <a href="@Url.Action("Create")" class="btn btn-success text-white">+ Thêm Sản Phẩm Mới</a>
-
-        <div class="gap-3">
-            <div class="input-group" style="height:50%;">
+    <div class="row g-3 mb-4 align-items-end">
+        <div class="col-md-4">
+            <div class="input-group">
                 <input type="text" id="searchTerm" class="form-control" placeholder="Tìm kiếm sản phẩm..." value="@ViewBag.SearchTerm" aria-label="Search">
-                <button class="btn btn-primary" type="button" onclick="applyFilter()">Tìm Kiếm</button>
+                <button class="btn btn-primary" type="button" onclick="applyFilter()"><i class='bx bx-search'></i></button>
             </div>
-
-            <div class="d-flex">
-                <div class="form-group">
-                    <label for="loaiSanPham">Lọc Theo Loại</label>
-                    <select id="loaiSanPham" class="form-select" onchange="applyFilter()">
-                        <option value="">Tất cả</option>
-                        @foreach (var loai in ViewBag.LoaiSanPham as List<string>)
-                        {
-                            <option value="@loai" @(Request.QueryString["loaiSanPham"] == loai ? "selected" : "")>@loai</option>
-                        }
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="thuongHieu">Lọc Theo Thương Hiệu</label>
-                    <select id="thuongHieu" class="form-select" onchange="applyFilter()">
-                        <option value="">Tất cả</option>
-                        @foreach (var thuong in ViewBag.ThuongHieu as List<string>)
-                        {
-                            <option value="@thuong" @(Request.QueryString["thuongHieu"] == thuong ? "selected" : "")>@thuong</option>
-                        }
-                    </select>
-                </div>
+        </div>
+        <div class="col-md-3">
+            <label for="loaiSanPham" class="form-label mb-1">Lọc Theo Loại</label>
+            <select id="loaiSanPham" class="form-select" onchange="applyFilter()">
+                <option value="">Tất cả</option>
+                @foreach (var loai in ViewBag.LoaiSanPham as List<string>)
+                {
+                    <option value="@loai" @(Request.QueryString["loaiSanPham"] == loai ? "selected" : "")>@loai</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="thuongHieu" class="form-label mb-1">Lọc Theo Thương Hiệu</label>
+            <select id="thuongHieu" class="form-select" onchange="applyFilter()">
+                <option value="">Tất cả</option>
+                @foreach (var thuong in ViewBag.ThuongHieu as List<string>)
+                {
+                    <option value="@thuong" @(Request.QueryString["thuongHieu"] == thuong ? "selected" : "")>@thuong</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-2 text-end">
+            <div class="d-flex flex-row gap-2 justify-content-end">
+                <button type="button" class="btn btn-danger flex-fill" onclick="confirmDelete()">
+                    <i class='bx bx-trash'></i> Xóa
+                </button>
+                <a href="@Url.Action("Create")" class="btn btn-success d-flex justify-content-center align-items-center gap-2 flex-fill">
+                    <i class='bx bx-plus'></i> Thêm mới
+                </a>
             </div>
         </div>
     </div>
 
     <form id="deleteForm" method="post" action="@Url.Action("XoaNhieuSP", "Ad_Product")">
-        <button type="button" class="btn btn-danger mb-3" onclick="confirmDelete()">Xóa Sản Phẩm Đã Chọn</button>
-
         <div class="table-responsive">
-            <table class="table table-bordered table-striped align-middle">
+            <table class="table table-bordered table-hover align-middle product-table shadow-sm rounded-3 overflow-hidden">
                 <thead class="table-light">
                     <tr>
                         <th><input type="checkbox" id="selectAll" onclick="toggleAll(this)" /></th>
-                        <th>Hình Ảnh Chính</th>
+                        <th>Hình Ảnh</th>
                         <th>Tên sản phẩm</th>
-                        <th>Loại sản phẩm</th>
+                        <th>Loại</th>
                         <th>Mô tả</th>
                         <th>Thương hiệu</th>
-                        <th>Ds Hình ảnh</th>
+                        <th>Hình ảnh phụ</th>
                         <th>Chức Năng</th>
                     </tr>
                 </thead>
@@ -68,30 +75,32 @@
                                 <input type="checkbox" name="sanPhamIds" value="@item.san_pham_id" />
                             </td>
                             <td>
-                                <img src="~/Content/Hinh_Anh/@item.hinh_anh_chinh" class="img-thumbnail" style="width: 100px; height: auto;" />
+                                <img src="~/Content/Hinh_Anh/@item.hinh_anh_chinh" class="img-thumbnail main-img" alt="Ảnh chính" />
                             </td>
-                            <td>@Html.DisplayFor(modelItem => item.ten_san_pham)</td>
+                            <td class="fw-semibold">@Html.DisplayFor(modelItem => item.ten_san_pham)</td>
                             <td>@Html.DisplayFor(modelItem => item.loai_san_pham)</td>
                             <td class="truncate">@item.mo_ta_chung</td>
                             <td>@Html.DisplayFor(modelItem => item.thuong_hieu)</td>
                             <td>
-                                <div class="d-flex flex-wrap gap-2">
+                                <div class="d-flex flex-wrap gap-1">
                                     @foreach (var image in item.danh_sach_hinh_anh.Split(','))
                                     {
-                                        <img src="~/Content/Hinh_Anh/@image.Trim()" class="img-thumbnail" style="width: 50px; height: 50px;" />
+                                        <img src="~/Content/Hinh_Anh/@image.Trim()" class="img-thumbnail sub-img" alt="Ảnh phụ" />
                                     }
                                 </div>
                             </td>
-                            <td class="d-flex">
-                                <a href="@Url.Action("Edit", new { id = item.san_pham_id })">
-                                    <img style="width:30px" src="~/Content/Hinh_Anh/Icon/pen.png" />
-                                </a> |
-                                <a href="@Url.Action("HienThiChiTietSanPham", new { san_pham_id = item.san_pham_id })">
-                                    <img style="width:35px" src="~/Content/Hinh_Anh/Icon/information.png" />
-                                </a> |
-                                <a href="@Url.Action("Delete", new { id = item.san_pham_id })">
-                                    <img style="width:30px" src="~/Content/Hinh_Anh/Icon/bin.png" />
-                                </a>
+                            <td>
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a href="@Url.Action("Edit", new { id = item.san_pham_id })" class="btn btn-sm btn-outline-primary" title="Sửa">
+                                        <i class='bx bx-edit'></i>
+                                    </a>
+                                    <a href="@Url.Action("HienThiChiTietSanPham", new { san_pham_id = item.san_pham_id })" class="btn btn-sm btn-outline-info" title="Chi tiết">
+                                        <i class='bx bx-info-circle'></i>
+                                    </a>
+                                    <a href="@Url.Action("Delete", new { id = item.san_pham_id })" class="btn btn-sm btn-outline-danger" title="Xóa">
+                                        <i class='bx bx-trash'></i>
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     }
@@ -128,136 +137,114 @@
     });
 </script>
 
-
 <style>
-    /* General Layout */
-    .container {
-        max-width: 1200px;
+    .product-admin-container {
         margin: 0 auto;
-        padding: 20px;
     }
 
-    /* Header */
-    h2 {
+    .admin-header {
+        background: linear-gradient(90deg, #e3e9ff 0%, #f8fafd 100%);
+    }
+
+    .admin-header h2 {
         font-size: 2rem;
         font-weight: bold;
-        color: #333;
+        color: #2D2E7F;
     }
 
-    /* Button styling */
-    .btn {
-        border-radius: 5px;
-        padding: 10px 20px;
-        font-size: 1rem;
+    .product-table {
+        border-radius: 12px;
+        overflow: hidden;
+        background: #fff;
     }
 
-    .btn-primary {
-        background-color: #007bff;
-        border: 1px solid #007bff;
-    }
-
-    .btn-danger {
-        background-color: #dc3545;
-        border: 1px solid #dc3545;
-    }
-    .btn-success {
-        background-color: #28a745;
-        border-color: #28a745;
-        color: white;
-    }
-
-        .btn-success:hover {
-            background-color: #218838;
-            border-color: #1e7e34;
-        }
-
-    /* Table styling */
-    .table {
-        width: 100%;
-        margin-top: 20px;
-        border-collapse: collapse;
-    }
-
-    .table-bordered {
-        border: 1px solid #ddd;
-    }
-
-    .table-striped tbody tr:nth-child(odd) {
-        background-color: #f9f9f9;
-    }
-
-    .table-light {
-        background-color: #f1f1f1;
-    }
-
-    .table th, .table td {
-        padding: 12px;
+    .product-table th, .product-table td {
+        vertical-align: middle;
         text-align: center;
     }
 
-    .table th {
-        background-color: #f8f9fa;
-        color: #333;
+    .product-table thead th {
+        background: #f1f3fa;
+        color: #2D2E7F;
+        font-weight: 600;
+        border-bottom: 2px solid #e3e9ff;
     }
 
-    .table td img {
-        max-width: 100px;
-        max-height: 100px;
+    .product-table tbody tr {
+        transition: background 0.2s;
     }
 
-    /* Search and Filter Section */
-    .input-group {
+    .product-table tbody tr:hover {
+        background: #f5f7ff;
+    }
+
+    .main-img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 2px solid #e3e9ff;
+        background: #f8fafd;
+    }
+
+    .sub-img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1px solid #e3e9ff;
+        background: #f8fafd;
+    }
+
+    .truncate {
+        max-width: 180px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .btn-outline-primary, .btn-outline-info, .btn-outline-danger {
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
         display: flex;
         align-items: center;
-        margin-bottom: 20px;
+        justify-content: center;
+        padding: 0;
+        font-size: 1.2rem;
+        transition: background 0.2s, color 0.2s;
     }
 
-        .input-group input {
-            width: 300px;
+    .btn-outline-primary:hover {
+        background: #2D2E7F;
+        color: #fff;
+    }
+
+    .btn-outline-info:hover {
+        background: #0dcaf0;
+        color: #fff;
+    }
+    
+    .btn-outline-danger:hover {
+        background: #dc3545;
+        color: #fff;
+    }
+    
+    @@media (max-width: 768px) {
+        .admin-header, .product-admin-container {
             padding: 10px;
         }
-
-        .input-group button {
-            margin-left: 10px;
-            padding: 10px 15px;
+        .product-table th, .product-table td {
+            font-size: 0.95rem;
+            padding: 8px;
         }
-
-    .form-group {
-        margin-right: 20px;
-    }
-
-    .form-select {
-        width: 200px;
-        padding: 10px;
-    }
-
-    .d-flex {
-        display: flex;
-        align-items: center;
-    }
-
-        .d-flex .form-group {
-            margin-right: 20px;
+        .main-img {
+            width: 50px;
+            height: 50px;
         }
-
-        /* Footer links and actions */
-        .d-flex a {
-            color: #007bff;
-            text-decoration: none;
-            padding: 5px 10px;
+        .sub-img {
+            width: 28px;
+            height: 28px;
         }
-
-            .d-flex a:hover {
-                color: #0056b3;
-            }
-
-    /* Checkbox and Image styling */
-    input[type="checkbox"] {
-        margin: 0;
-    }
-
-    .img-thumbnail {
-        border-radius: 5px;
-        margin-right: 5px;
     }
 </style>
