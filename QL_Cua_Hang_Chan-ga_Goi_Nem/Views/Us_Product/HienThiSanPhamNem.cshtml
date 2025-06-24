@@ -7,94 +7,106 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 }
 
-<div class="container my-4">
-    <div class="img-top mb-4" style="background-image: url('/Content/Hinh_Anh/poster/poster nệm.png');"></div>
-
+<div class="container mt-1">
+    <div class="img-top mb-4 rounded-4 overflow-hidden">
+        <img src="/Content/Hinh_Anh/poster/poster nệm.png" alt="">
+    </div>
     <div class="row">
         <div class="col-md-3">
             <div class="sticky-top">
                 <form method="get" action="@Url.Action("HienThiSanPhamNem", "Us_Product")">
-                    <section class="sticky-top p-3 rounded">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span style="font-size:20px" class="fw-bold">Bộ lọc</span>
-                            <i class='bx bx-filter-alt fs-5'></i>
+                    <section class="sticky-top p-3 rounded-4 shadow-sm bg-white">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <i class='bx bx-filter-alt fs-4 text-primary'></i>
+                            <span class="fw-bold text-primary" style="font-size:18px">Bộ lọc</span>
                         </div>
-
-                        <!-- Filter 1: Product Type -->
-                        <div class="filter-section mb-3">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h6 class="mb-0">Loại sản phẩm</h6>
-                                <button class="btn toggle-button">
-                                    <i class='bx bx-chevron-down'></i>
-                                </button>
-                            </div>
-                            <div class="expandable-content row">
-                                @foreach (var loai in ViewBag.DanhSachLoaiSanPham as List<string>)
-                                {
-                                    // Kiểm tra nếu loại sản phẩm chứa chữ "nệm"
-                                    if (loai.ToLower().Contains("nệm"))
-                                    {
-                                        <div class="form-check mt-2 col-6">
-                                            <input class="form-check-input" type="checkbox" name="LoaiSanPham" value="@loai" id="loai_@loai">
-                                            <label class="form-check-label" for="loai_@loai">@loai</label>
+                        
+                        <!-- Accordion Filter -->
+                        <div class="accordion filter-accordion" id="filterAccordion">
+                            
+                            <!-- Filter 1: Product Type -->
+                            <div class="accordion-item mb-2 rounded-3 border-0">
+                                <h2 class="accordion-header" id="headingLoai">
+                                    <button class="accordion-button fw-semibold text-primary bg-light-subtle" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLoai" aria-expanded="true" aria-controls="collapseLoai">
+                                        Loại sản phẩm
+                                    </button>
+                                </h2>
+                                <div id="collapseLoai" class="accordion-collapse collapse show" aria-labelledby="headingLoai" data-bs-parent="#filterAccordion">
+                                    <div class="accordion-body p-2">
+                                        <div class="row ps-2">
+                                            @foreach (var loai in ViewBag.DanhSachLoaiSanPham as List<string>)
+                                            {
+                                                if (loai.ToLower().Contains("nệm"))
+                                                {
+                                                    <div class="form-check col-12 mb-2">
+                                                        <input class="form-check-input" type="checkbox" name="LoaiSanPham" value="@loai" id="loai_@loai">
+                                                        <label class="form-check-label ms-2" for="loai_@loai">@loai</label>
+                                                    </div>
+                                                }
+                                            }
                                         </div>
-                                    }
-                                }
-                            </div>
-                        </div>
-
-                        <!-- Filter 2: Size -->
-                        <div class="filter-section mb-3">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h6 class="mb-0">Kích thước</h6>
-                                <button class="btn toggle-button">
-                                    <i class='bx bx-chevron-down'></i>
-                                </button>
-                            </div>
-                            <div class="expandable-content mt-2 row">
-                                @foreach (var kichThuoc in ViewBag.DanhSachKichThuoc as List<string>)
-                                {
-                                    <div class="form-check col-6">
-                                        <input class="form-check-input" type="checkbox" name="KichThuoc" value="@kichThuoc" id="kichThuoc_@kichThuoc">
-                                        <label class="form-check-label" for="kichThuoc_@kichThuoc">@kichThuoc</label>
                                     </div>
-                                }
+                                </div>
+                            </div>
+                            
+                            <!-- Filter 2: Size -->
+                            <div class="accordion-item mb-2 rounded-3 border-0">
+                                <h2 class="accordion-header" id="headingKichThuoc">
+                                    <button class="accordion-button fw-semibold text-primary bg-light-subtle" type="button" data-bs-toggle="collapse" data-bs-target="#collapseKichThuoc" aria-expanded="true" aria-controls="collapseKichThuoc">
+                                        Kích thước
+                                    </button>
+                                </h2>
+                                <div id="collapseKichThuoc" class="accordion-collapse collapse show" aria-labelledby="headingKichThuoc" data-bs-parent="#filterAccordion">
+                                    <div class="accordion-body p-2">
+                                        <div class="row ps-2">
+                                            @foreach (var kichThuoc in ViewBag.DanhSachKichThuoc as List<string>)
+                                            {
+                                                <div class="form-check col-12 mb-2">
+                                                    <input class="form-check-input" type="checkbox" name="KichThuoc" value="@kichThuoc" id="kichThuoc_@kichThuoc">
+                                                    <label class="form-check-label ms-2" for="kichThuoc_@kichThuoc">@kichThuoc</label>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Filter 3: Price Range -->
+                            <div class="accordion-item mb-2 rounded-3 border-0">
+                                <h2 class="accordion-header" id="headingGia">
+                                    <button class="accordion-button fw-semibold text-primary bg-light-subtle" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGia" aria-expanded="true" aria-controls="collapseGia">
+                                        Khoảng giá
+                                    </button>
+                                </h2>
+                                <div id="collapseGia" class="accordion-collapse collapse show" aria-labelledby="headingGia" data-bs-parent="#filterAccordion">
+                                    <div class="accordion-body p-2">
+                                        <div class="row ps-2">
+                                            <div class="form-check col-12 mb-2">
+                                                <input class="form-check-input" type="checkbox" name="KhoangGia" value="1" id="gia_1">
+                                                <label class="form-check-label ms-2" for="gia_1">Dưới 5 triệu</label>
+                                            </div>
+                                            <div class="form-check col-12 mb-2">
+                                                <input class="form-check-input" type="checkbox" name="KhoangGia" value="2" id="gia_2">
+                                                <label class="form-check-label ms-2" for="gia_2">5 - 10 triệu</label>
+                                            </div>
+                                            <div class="form-check col-12 mb-2">
+                                                <input class="form-check-input" type="checkbox" name="KhoangGia" value="3" id="gia_3">
+                                                <label class="form-check-label ms-2" for="gia_3">10 - 15 triệu</label>
+                                            </div>
+                                            <div class="form-check col-12 mb-2">
+                                                <input class="form-check-input" type="checkbox" name="KhoangGia" value="4" id="gia_4">
+                                                <label class="form-check-label ms-2" for="gia_4">15 - 30 triệu</label>
+                                            </div>
+                                            <div class="form-check col-12 mb-2">
+                                                <input class="form-check-input" type="checkbox" name="KhoangGia" value="5" id="gia_5">
+                                                <label class="form-check-label ms-2" for="gia_5">Trên 30 triệu</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-                        <!-- Filter 3: Price Range -->
-                        <div class="filter-section mb-3">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h6 class="mb-0">Khoảng giá</h6>
-                                <button class="btn toggle-button">
-                                    <i class='bx bx-chevron-down'></i>
-                                </button>
-                            </div>
-                            <div class="expandable-content mt-2 row">
-                                <div class="form-check col-6">
-                                    <input class="form-check-input" type="checkbox" name="KhoangGia" value="1" id="gia_1">
-                                    <label class="form-check-label" for="gia_1">Dưới 5 triệu</label>
-                                </div>
-                                <div class="form-check col-6">
-                                    <input class="form-check-input" type="checkbox" name="KhoangGia" value="2" id="gia_2">
-                                    <label class="form-check-label" for="gia_2">5 - 10 triệu</label>
-                                </div>
-                                <div class="form-check col-6">
-                                    <input class="form-check-input" type="checkbox" name="KhoangGia" value="3" id="gia_3">
-                                    <label class="form-check-label" for="gia_3">10 - 15 triệu</label>
-                                </div>
-                                <div class="form-check col-6">
-                                    <input class="form-check-input" type="checkbox" name="KhoangGia" value="4" id="gia_4">
-                                    <label class="form-check-label" for="gia_4">15 - 30 triệu</label>
-                                </div>
-                                <div class="form-check col-6">
-                                    <input class="form-check-input" type="checkbox" name="KhoangGia" value="5" id="gia_5">
-                                    <label class="form-check-label" for="gia_5">Trên 30 triệu</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary w-100">Áp dụng bộ lọc</button>
+                        <button type="submit" class="btn btn-primary border-0 w-100 rounded-pill py-2 fw-bold shadow-sm mt-3">Áp dụng bộ lọc</button>
                     </section>
                 </form>
             </div>
@@ -102,52 +114,40 @@
 
         <!-- Product Section -->
         <div class="col-md-9">
-            <h4 class="mb-3">Nệm</h4>
-
-            <div class="row">
+            <h4 class="mb-3 fw-bold text-primary">Nệm</h4>
+            <div class="row g-4">
                 @foreach (var product in Model)
                 {
-                    <a class="col-6 col-lg-4" href="@Url.Action("ChiTietSanPham", new { id = product.SanPhamId})" style="text-decoration:none;">
-                        <div class="mb-4">
-                            <div class="product-card position-relative border rounded shadow-sm">
-                                <!-- Discount Percentage Label -->
-                                @if (product.GiamGia != null && product.GiamGia != 0)
-                                {
-                                    <div class="discount-label">-@product.GiamGia.ToString("N0")%</div>
-                                }
-
-                                <!-- Product Image -->
-                                <div class="product-img mb-2">
-                                    <img style="width: 100%; height: 100%;" src="~/Content/Hinh_Anh/@product.HinhAnh" alt="@product.HinhAnh">
+                    <a class="col-12 col-sm-6 col-lg-4 text-decoration-none" href="@Url.Action("ChiTietSanPham", new { id = product.SanPhamId})">
+                        <div class="product-card position-relative border-0 shadow-sm">
+                            @if (product.GiamGia != null && product.GiamGia != 0)
+                            {
+                                <div class="discount-label">-@product.GiamGia.ToString("N0")%</div>
+                            }
+                            <div class="product-img mb-2">
+                                <img style="max-width: 100%; height: 100%;" src="~/Content/Hinh_Anh/@product.HinhAnh" alt="@product.HinhAnh">
+                            </div>
+                            <div class="p-3 card-content flex-grow-1 d-flex flex-column justify-content-between">
+                                <div class="d-flex align-items-center mb-1">
+                                    <span class="fw-semibold">@product.DanhGiaTrungBinh/5</span>
+                                    <i class='bx bxs-star text-warning ms-1'></i>
+                                    <span class="text-muted ms-1">(@product.SoLuongDanhGia)</span>
                                 </div>
-
-                                <div class="p-3 card-content">
-                                    <div class="d-flex align-items-center">
-                                        <span>@product.DanhGiaTrungBinh/5</span>
-                                        <i class='bx bxs-star text-warning ms-1'></i>
-                                        <span>(@product.SoLuongDanhGia)</span>
-                                    </div>
-
-                                    <p class="fw-bold mt-2 name-product">@product.TenSanPham</p>
-
-                                    <span class="text-danger fw-bold">
-                                        @if (product.GiaKhuyenMai == product.Gia)
-                                        {
-                                            // Nếu giá khuyến mãi bằng giá gốc, chỉ hiển thị giá khuyến mãi
-                                            @product.GiaKhuyenMai.ToString("N0")
-                                        }
-                                        else
-                                        {
-                                            // Nếu giá khuyến mãi khác giá gốc, hiển thị cả 2 giá
-                                            @product.GiaKhuyenMai.ToString("N0") <!-- Hiển thị giá khuyến mãi -->
-                                            <span class="text-muted text-decoration-line-through small">
-                                                @product.Gia.ToString("N0")<!-- Hiển thị giá gốc, gạch ngang -->
-                                            </span>
-                                        }
-                                    </span>
-
-                                    <p class="mt-1">@product.SoLuongKichThuoc Kích Thước</p>
-                                </div>
+                                <p class="fw-bold mt-2 name-product">@product.TenSanPham</p>
+                                <span class="text-danger fw-bold fs-5">
+                                    @if (product.GiaKhuyenMai == product.Gia)
+                                    {
+                                        @product.GiaKhuyenMai.ToString("N0")
+                                    }
+                                    else
+                                    {
+                                        @product.GiaKhuyenMai.ToString("N0")
+                                        <span class="text-muted text-decoration-line-through small ms-2">
+                                            @product.Gia.ToString("N0")
+                                        </span>
+                                    }
+                                </span>
+                                <p class="mt-1 mb-0 text-secondary small"><i class='bx bx-expand'></i> @product.SoLuongKichThuoc Kích Thước</p>
                             </div>
                         </div>
                     </a>
@@ -156,36 +156,29 @@
         </div>
     </div>
 </div>
-</div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // Get all toggle buttons and expandable content elements
         const toggleButtons = document.querySelectorAll('.toggle-button');
         const expandableContents = document.querySelectorAll('.expandable-content');
 
-        // Add event listeners to all toggle buttons
         toggleButtons.forEach((button, index) => {
             button.addEventListener('click', (event) => {
-                // Ngừng hành động mặc định (ngừng tải lại trang)
                 event.preventDefault();
 
-                const expandableContent = expandableContents[index]; // Get corresponding expandable content
-                const icon = button.querySelector('i'); // Get the <i> element inside the button
+                const expandableContent = expandableContents[index];
+                const icon = button.querySelector('i');
 
-                // Toggle the visibility of the content when the button is clicked
                 if (expandableContent.style.maxHeight) {
-                    // Content is expanded, so collapse it
                     expandableContent.style.maxHeight = null;
-                    icon.classList.remove('bx-chevron-up'); // Remove the "up" icon
-                    icon.classList.add('bx-chevron-down'); // Add the "down" icon
-                    button.appendChild(icon); // Re-append the icon to preserve its position
+                    icon.classList.remove('bx-chevron-up');
+                    icon.classList.add('bx-chevron-down');
+                    button.appendChild(icon);
                 } else {
-                    // Content is collapsed, so expand it
                     expandableContent.style.maxHeight = expandableContent.scrollHeight + "px";
-                    icon.classList.remove('bx-chevron-down'); // Remove the "down" icon
-                    icon.classList.add('bx-chevron-up'); // Add the "up" icon
-                    button.appendChild(icon); // Re-append the icon to preserve its position
+                    icon.classList.remove('bx-chevron-down');
+                    icon.classList.add('bx-chevron-up');
+                    button.appendChild(icon);
                 }
             });
         });
@@ -193,22 +186,14 @@
 </script>
 
 <style>
-    .img-top {
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        height: 320px;
-        border-radius: 14px;
-        box-shadow: 0 4px 16px rgba(44, 46, 127, 0.10);
-    }
-
     .filter-section {
-        border-bottom: 1px solid #e0e0e0;
+        border: 1px solid #e0e0e0;
         padding-bottom: 12px;
         margin-bottom: 18px;
-        background: #fff;
-        border-radius: 10px;
+        background: #f8fafc;
+        border-radius: 14px;
         box-shadow: 0 1px 4px rgba(44, 46, 127, 0.04);
+        padding: 16px 12px 8px 12px;
     }
 
     .filter-section h6 {
@@ -233,20 +218,20 @@
 
     .btn-primary:hover {
         background: #f6a733;
-        border-color: #f6a733;
         color: #fff;
-        transform: scale(1.04);
     }
 
     .product-card {
         transition: transform 0.3s, box-shadow 0.3s;
         border: none;
-        border-radius: 14px;
+        border-radius: 8px;
         background: #fff;
         box-shadow: 0 2px 12px rgba(44, 46, 127, 0.10);
         overflow: hidden;
         cursor: pointer;
         min-height: 420px;
+        display: flex;
+        flex-direction: column;
     }
 
     .product-card:hover {
@@ -256,19 +241,18 @@
 
     .product-img {
         width: 100%;
-        height: 220px;
+        height: 300px;
         background: #f3f3ff;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 14px 14px 0 0;
     }
 
     .product-img img {
-        max-width: 90%;
-        max-height: 90%;
+        max-width: 100%;
+        max-height: 100%;
         object-fit: contain;
-        border-radius: 10px;
+        border-radius: 8px 8px 0 0;
     }
 
     .card-content {
@@ -305,6 +289,7 @@
         padding: 7px 13px;
         border-radius: 50px;
         box-shadow: 0 2px 6px rgba(44, 46, 127, 0.10);
+        z-index: 2;
     }
 
     .expandable-content {
@@ -333,17 +318,60 @@
         transform: rotate(180deg);
     }
 
+    .filter-accordion .accordion-item {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+    }
+
+    .filter-accordion .accordion-button {
+        border-radius: 12px !important;
+        background: #f8fafc !important;
+        color: #2d2e7f !important;
+        font-size: 1.08rem;
+        font-weight: 600;
+        box-shadow: none;
+        padding: 10px 16px;
+        margin-bottom: 2px;
+    }
+
+    .filter-accordion .accordion-button:not(.collapsed) {
+        color: #f6a733 !important;
+        background: #f3f3ff !important;
+    }
+
+    .filter-accordion .accordion-body {
+        padding: 8px 0 0 0;
+    }
+
+    .form-check-input:checked {
+        background-color: #2d2e7f;
+        border-color: #2d2e7f;
+    }
+
+    .form-check-label {
+        font-size: 1rem;
+        color: #444;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+
+    .form-check-label:hover {
+        color: #2d2e7f;
+    }
+
     @@media (max-width: 991px) {
         .img-top {
-            height: 180px;
+            min-height: 120px;
+            height: 120px;
         }
 
         .product-img {
-            height: 140px;
+            height: 120px;
         }
 
         .product-card {
-            min-height: 320px;
+            min-height: 260px;
         }
     }
 </style>

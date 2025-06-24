@@ -10,62 +10,69 @@
     <link href="~/Content/bootstrap-5.3.3-dist/css/bootstrap.css" rel="stylesheet" />
     <script src="~/Content/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
     <script src="~/Content/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Boxixon -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <!-- Navbar Section -->
-        <div class="fixed-top d-flex nav-top pt-2">
-            <div class="col-4 p-0">
-                <div class="group-item w-100 p-0">
-                    <div class="item me-3">
-                        <a href="~/Us_Order/Index"><i class='bx bx-bookmarks'></i></i></a>
-                        <a href="~/Us_Order/Index">Đơn hàng</a>
+        <!-- Top Navigation Bar -->
+        <div class="fixed-top nav-top px-3 py-2" style="z-index:1050;">
+            <div class="container-fluid">
+                <div class="d-flex align-items-center justify-content-between w-100" style="min-height:70px;">
+                    <!-- Menu trái -->
+                    <div class="nav-header-left d-flex align-items-center gap-3 flex-shrink-0" style="min-width:180px;">
+                        <a href="~/Us_Order/Index" class="nav-link-top d-flex align-items-center gap-2">
+                            <div class="icon-wrapper">
+                                <i class='bx bx-bookmarks'></i>
+                            </div>
+                            <span class="nav-text">Đơn hàng</span>
+                        </a>
                     </div>
-                </div>
-            </div>
-            <div class="col-4 p-0">
-                <div class="logo">
-                    <a href="~/Us_Product/HienThiSanPhamNem">
-                        <img style="width:150px" src="~/Content/Hinh_Anh/Logo/Logo-bg.png" />
-                    </a>
-                </div>
-            </div>
-            <div class="col-4 p-0">
-                <div class="group-item w-100 p-0">
-                    <div class="item me-3">
-                        <a href="~/Us_Product/GioHang"><i class='bx bx-cart'></i></a>
-                        <a href="~/Us_Product/GioHang">Giỏ hàng</a>
+                    <!-- Logo giữa -->
+                    <div class="nav-header-center">
+                        <a href="~/Us_Product/HienThiSanPhamNem" class="logo-link">
+                            <img src="~/Content/Hinh_Anh/Logo/Logo-bg.png" alt="Logo" class="logo-img" />
+                        </a>
                     </div>
-                    <div class="item">
-                        <a href="~/DangNhap/ThongTinTaiKhoan" class="" style="text-decoration:none">
-                            <i class='bx bx-user'></i>
-                            @if (Session["UserName"] != null)
-                            {
-                                <span style="font-size:15px;">@Session["UserName"]</span>
-                            }
-                            else
-                            {
-                                <span style="font-size:14px">Tài Khoản</span>
-                            }
+                    <!-- Menu phải -->
+                    <div class="nav-header-right d-flex align-items-center gap-3 flex-shrink-0 justify-content-end">
+                        <a href="~/Us_Product/GioHang" class="nav-link-top d-flex align-items-center gap-2 position-relative">
+                            <div class="icon-wrapper">
+                                <i class='bx bx-cart'></i>
+                                <span class="cart-badge">3</span>
+                            </div>
+                            <span class="nav-text">Giỏ hàng</span>
                         </a>
                         <div class="dropdown">
-                            <button class="btn dropdown-toggle shadow-none" type="button" style="width:fit-content; height:fit-content; outline:none" data-bs-toggle="dropdown" aria-expanded="false"></button>
-                            <ul class="dropdown-menu" style="z-index:10">
+                            <button class="nav-link-top dropdown-toggle d-flex align-items-center gap-2 user-dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration:none; background: none; border: none;">
+                                <div class="icon-wrapper user-icon">
+                                    <i class='bx bx-user'></i>
+                                </div>
                                 @if (Session["UserName"] != null)
                                 {
-                                    <li><a class="dropdown-item" href="~/DangNhap/DangXuat">Đăng xuất</a></li>
-
+                                    <span class="nav-text">@Session["UserName"]</span>
+                                }
+                                else
+                                {
+                                    <span class="nav-text">Tài Khoản</span>
+                                }
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                @if (Session["UserName"] != null)
+                                {
+                                    <li><a class="dropdown-item d-flex align-items-center gap-2" href="~/DangNhap/ThongTinTaiKhoan"><i class='bx bx-user-circle'></i><span>Thông tin tài khoản</span></a></li>
+                                    <li><a class="dropdown-item d-flex align-items-center gap-2" href="~/Us_Order/Index"><i class='bx bx-receipt'></i><span>Đơn hàng của tôi</span></a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="~/DangNhap/DangXuat"><i class='bx bx-log-out'></i><span>Đăng xuất</span></a></li>
                                     if (Session["VaiTro"] != null && Session["VaiTro"].ToString() == "admin")
                                     {
-                                        <li><a class="dropdown-item" href="~/Ad_Product/HienThiSP">Rời đi</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item d-flex align-items-center gap-2 text-primary" href="~/Ad_Product/HienThiSP"><i class='bx bx-cog'></i><span>Quản trị</span></a></li>
                                     }
                                 }
                                 else
                                 {
-                                    <li><a class="dropdown-item" href="~/DangNhap/DangNhap">Đăng nhập</a></li>
-                                    <li><a class="dropdown-item" href="~/DangNhap/DangKy">Đăng ký</a></li>
+                                    <li><a class="dropdown-item d-flex align-items-center gap-2" href="~/DangNhap/DangNhap"><i class='bx bx-log-in'></i><span>Đăng nhập</span></a></li>
+                                    <li><a class="dropdown-item d-flex align-items-center gap-2" href="~/DangNhap/DangKy"><i class='bx bx-user-plus'></i><span>Đăng ký</span></a></li>
                                 }
                             </ul>
                         </div>
@@ -73,74 +80,150 @@
                 </div>
             </div>
         </div>
-        <div class="container d-flex sticky-top nav-bot">
-            <div class="col-8">
-                <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                    <div class="container-fluid">
-                        <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                            <a class="navbar-brand" href="#"></a>
-                        </button>
-                        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                            <div class="offcanvas-header">
-                                <h5 class="offcanvas-title" id="offcanvasNavbarLabel"></h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                            </div>
-                            <div class="offcanvas-body">
-                                <ul class="navbar-nav justify-content-start flex-grow-1 pe-3 border-0">
-                                    <li><a href="~/Us_Product/HienThiSanPhamNem" class="nav-link">Nệm</a></li>
-                                    <li><a href="~/Us_Product/HienThiSanPhamChanGa" class="nav-link">Chăn ga</a></li>
-                                    <li><a href="~/Us_Product/HienThiSanPhamGoi" class="nav-link">Gối</a></li>
-                                </ul>
+        
+        <!-- Navigation Menu -->
+        <div class="container nav-bot sticky-top" style="margin-top:80px;">
+            <div class="row align-items-center g-0">
+                <div class="col-lg-8 col-12">
+                    <nav class="navbar navbar-expand-lg">
+                        <div class="container-fluid px-0">
+                            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                                <div class="offcanvas-header">
+                                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+                                        <i class='bx bx-category me-2'></i>Danh mục sản phẩm
+                                    </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body">
+                                    <ul class="navbar-nav gap-2">
+                                        <li class="nav-item">
+                                            <a href="~/Us_Product/HienThiSanPhamNem" class="nav-link-menu">
+                                                <i class='bx bx-bed me-2'></i>Nệm
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="~/Us_Product/HienThiSanPhamChanGa" class="nav-link-menu">
+                                                <i class='bx bx-blanket me-2'></i>Chăn ga
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="~/Us_Product/HienThiSanPhamGoi" class="nav-link-menu">
+                                                <i class='bx bx-shape-square me-2'></i>Gối
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </nav>
-            </div>
-            <div class="col-4 .collapse.navbar-collapse p-3">
-                <form class="d-flex" role="search" method="GET" action="@Url.Action("Search", "Us_Search")"
-                      style="display: flex; justify-content: center; align-items: center; background: #edebff; border-radius: 16px; width: 100%; padding: 0 10px;">
-                    <input class="form-control form-check-inline shadow-none border-0 me-2" type="search" name="TimKiem"
-                           placeholder="Tìm kiếm nhanh" aria-label="Search"
-                           style="background-color: transparent; border: none; box-shadow: none; outline: none;" />
-                    <button type="submit" class="border-0 shadow-none"
-                            style="background: none; border: none; box-shadow: none;">
-                        <i class='bx bx-search'></i>
-                    </button>
-                </form>
+                    </nav>
+                </div>
+                <div class="col-lg-4 col-12 p-2">
+                    <form class="search-form d-flex" role="search" method="GET" action="@Url.Action("Search", "Us_Search")">
+                        <div class="search-input-wrapper">
+                            <input class="search-input" type="search" name="TimKiem" placeholder="Tìm kiếm sản phẩm..." aria-label="Search" />
+                            <button type="submit" class="search-btn">
+                                <i class='bx bx-search'></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </header>
-    <div style="min-height:600px">
+    
+    <main style="min-height:600px; padding-top: 20px;">
         @RenderBody()
-    </div>
-    <footer>
-        <div class="footer container">
-            <section class="row footer-top">
-                <div class="col">
-                    <img style="width:200px" src="~/Content/Hinh_Anh/Logo/Logo-removebg.png" />
-                    <p>Trụ sở: Tầng 7, tòa nhà Nhật An, 30D phố Kim Mã Thượng, phường Cống Vị, quận Ba Đình, HN.    </p>
+    </main>
+    
+    <footer class="footer-modern">
+        <div class="container">
+            <div class="footer-content">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="footer-brand">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="171" height="51" viewBox="0 0 171 51" fill="none">
+                                <path d="M169.999 11.4044C164.601 9.67007 161.054 6.0438 159.357 0.525547C159.255 0.157664 158.946 0 158.638 0C158.329 0 158.021 0.157664 157.918 0.525547C156.221 6.0438 152.674 9.67007 147.276 11.4044C146.556 11.6146 146.556 12.6657 147.276 12.8759C152.623 14.6102 156.119 18.1839 157.867 23.8073C157.969 24.1752 158.329 24.3328 158.638 24.3328C158.946 24.3328 159.255 24.1752 159.409 23.8073C161.157 18.2365 164.704 14.6102 169.999 12.8759C170.668 12.6657 170.668 11.6672 169.999 11.4044Z" fill="#F6A733"></path>
+                                <path d="M18.5963 20.1797C17.2082 20.1797 16.2829 20.9155 15.7688 22.3344L11.656 36.9972L6.97766 20.1797H0.5L8.67418 44.0921H14.8948L23.1718 20.1797H18.5963Z" fill="white"></path>
+                                <path d="M42.2965 20.1797C41.4225 20.1797 40.7028 20.495 40.1373 21.0731C39.5718 21.6512 39.3147 22.387 39.3147 23.2279V35.4206C39.3147 36.8395 38.9034 37.8906 38.0295 38.5738C37.1555 39.2571 36.2301 39.5724 35.1505 39.5724C34.1223 39.5724 33.1455 39.2571 32.323 38.5738C31.5004 37.9432 31.0891 36.8921 31.0891 35.4206V20.1797H24.9199V34.1592C24.9199 38.3111 25.9481 40.9914 28.0559 42.3052C30.1123 43.6191 32.4258 44.3549 34.9449 44.46C37.5154 44.46 39.8802 43.8293 42.0394 42.4629C44.1987 41.149 45.2783 38.3636 45.2783 34.1067V20.1797H42.2965Z" fill="white"></path>
+                                <path d="M89.182 21.7547C87.0228 20.3883 84.6579 19.7051 82.0874 19.7051C79.5684 19.8102 77.2549 20.5985 75.1985 21.9649C73.1421 23.3314 72.0625 26.0642 72.0625 30.1109V44.0379H78.2317V28.8496C78.2317 27.4306 78.643 26.3795 79.4655 25.6963C80.2881 25.0131 81.2135 24.6978 82.2931 24.6978C83.3213 24.6978 84.2981 25.0131 85.172 25.6963C86.046 26.3795 86.4573 27.4306 86.4573 28.8496V40.9897C86.4573 41.8832 86.7143 42.7241 87.2798 43.2496C87.8454 43.8277 88.5651 44.0379 89.4391 44.0379H92.5237V30.1109C92.4208 25.9065 91.3412 23.1211 89.182 21.7547Z" fill="white"></path>
+                                <path d="M109.438 37.1003C109.078 37.4157 108.204 39.2551 105.274 39.2551C103.732 39.2551 102.601 38.7821 101.829 37.8361C101.007 36.9427 100.493 35.4186 100.493 33.6843H113.088C115.299 33.6843 115.761 32.0025 115.761 31.0565C115.761 28.2711 114.836 25.0127 112.934 22.8054C110.98 20.6507 108.256 19.5996 104.76 19.5996C101.418 19.5996 98.7962 20.7033 96.9454 22.9106C95.1461 25.0653 94.2207 28.0609 94.2207 31.8974C94.2207 35.8916 95.1461 38.9923 97.0483 41.1471C98.899 43.3544 101.521 44.458 104.863 44.458C107.639 44.458 109.901 43.7748 111.7 42.4084C113.499 41.0945 114.733 39.2025 115.402 36.6799H111.032C110.363 36.6799 109.849 36.7325 109.438 37.1003ZM101.829 26.0638C102.652 25.223 103.68 24.8025 105.017 24.8025C106.405 24.8025 107.484 25.223 108.256 26.0638C108.975 26.8522 109.387 28.0609 109.489 29.6376H100.544C100.544 28.1135 101.007 26.9047 101.829 26.0638Z" fill="white"></path>
+                                <path d="M149.074 21.6492C146.915 20.2828 144.55 19.5996 141.98 19.5996C140.694 19.6522 139.461 19.8624 138.227 20.1777C137.044 20.493 136.016 21.0711 135.091 21.8595C134.063 20.966 132.88 20.3879 131.595 20.0726C130.31 19.7573 128.973 19.5996 127.636 19.5996C125.117 19.7047 122.804 20.493 120.747 21.8595C118.691 23.2259 117.611 25.9587 117.611 30.0054V44.0376H123.781V28.7441C123.781 27.3252 124.192 26.2741 125.014 25.5908C125.837 24.9076 126.762 24.5923 127.842 24.5923C128.87 24.5923 129.847 24.9076 130.721 25.5908C131.543 26.2741 132.006 27.3252 132.006 28.7441V44.0376H138.072V28.7441C138.072 27.3252 138.484 26.2741 139.358 25.5908C140.232 24.9076 141.157 24.5923 142.237 24.5923C143.265 24.5923 144.242 24.9076 145.116 25.5908C145.99 26.2741 146.401 27.3252 146.401 28.7441V40.9894C146.401 41.8828 146.658 42.6186 147.223 43.1967C147.789 43.7748 148.509 44.0376 149.383 44.0376H152.467V30.0054C152.313 25.8536 151.233 23.0682 149.074 21.6492Z" fill="white"></path>
+                                <path d="M112.264 18.7073C110.671 17.2358 107.997 16.2372 105.016 16.2372C102.034 16.2372 99.4119 17.1832 97.8182 18.6547C97.664 18.3394 96.79 16.1847 99.3091 13.9774C100.337 13.0839 102.342 11.9277 105.067 11.9277C107.792 11.9277 109.848 13.0839 110.825 13.9774C113.344 16.2372 112.367 18.4445 112.264 18.7073Z" fill="white"></path>
+                                <path d="M109.283 46.5078C108.872 48.5049 107.124 50.029 105.067 50.029C102.959 50.029 101.211 48.5049 100.852 46.5078C101.16 46.5604 103.062 47.0334 105.067 47.0334C107.072 47.0334 108.974 46.5604 109.283 46.5078Z" fill="white"></path>
+                                <path d="M64.4541 21.3339C62.8089 20.1777 60.3413 19.5996 57.051 19.5996C54.1207 19.5996 51.8586 20.2828 50.2649 21.6492C48.8768 22.858 48.0543 24.3821 47.7972 26.2215H53.658C53.9664 25.5909 54.4291 25.1179 55.046 24.8551C55.7144 24.5923 56.8454 24.4872 57.6679 24.4872C60.6497 24.4872 61.1124 25.7485 61.1124 26.6419C61.1124 27.8507 59.8272 28.5865 57.2567 28.9544C52.7326 29.585 50.7276 30.3733 49.2881 31.477C47.8486 32.5281 47.1289 34.3675 47.1289 36.8901C47.1289 39.5704 47.9001 41.5149 49.4938 42.6711C51.0875 43.8273 52.9382 44.4054 55.046 44.4054C58.0792 44.4054 61.1638 42.9865 61.8322 41.7777C62.3463 42.7237 63.0146 43.8799 65.2766 43.9325H66.8703V33.369V26.3266C66.9731 24.1719 66.1506 22.4901 64.4541 21.3339ZM61.2666 34.2624C61.2666 35.9441 60.804 37.258 59.8786 38.204C58.9532 39.15 57.6679 39.623 56.0228 39.623C55.046 39.623 54.2749 39.4127 53.7608 38.8872C53.2467 38.3617 52.9896 37.6259 52.9896 36.7325C52.9896 36.0492 53.0925 35.4186 53.6066 34.7354C54.0178 34.1573 54.8404 33.8945 55.8686 33.5792L57.8736 33.1587C59.3131 32.7908 60.4955 32.423 61.3181 32.0025V34.2624H61.2666Z" fill="white"></path>
+                                <path d="M158.381 38.9938C159.666 38.9938 160.746 40.0974 160.746 41.4113C160.746 42.7251 159.666 43.8288 158.381 43.8288C157.096 43.8288 156.016 42.7251 156.016 41.4113C156.016 40.0449 157.096 38.9938 158.381 38.9938ZM158.381 38.3105C156.684 38.3105 155.348 39.677 155.348 41.4113C155.348 43.1456 156.684 44.512 158.381 44.512C160.077 44.512 161.414 43.1456 161.414 41.4113C161.414 39.677 160.077 38.3105 158.381 38.3105Z" fill="white"></path>
+                                <path d="M157.301 42.727V40.3095C157.301 40.2569 157.352 40.1518 157.404 40.0993C157.455 40.0467 157.506 39.9941 157.609 39.9941H158.637C158.946 39.9941 159.152 40.0467 159.254 40.2044C159.409 40.3095 159.46 40.5197 159.46 40.7825C159.46 40.9401 159.409 41.0978 159.357 41.2029C159.306 41.308 159.203 41.3606 159.049 41.4131C159.152 41.4657 159.254 41.5182 159.306 41.6233C159.357 41.6759 159.357 41.8336 159.409 42.0438V42.3591C159.409 42.4117 159.409 42.4117 159.409 42.4642C159.409 42.5168 159.409 42.5168 159.409 42.5693C159.409 42.6744 159.46 42.727 159.511 42.727H158.894C158.843 42.6744 158.843 42.6219 158.843 42.5693C158.843 42.4642 158.843 42.4117 158.843 42.4117V42.0963C158.843 41.9387 158.792 41.8336 158.74 41.781C158.689 41.7284 158.586 41.6759 158.432 41.6759H157.866V42.727H157.301ZM157.866 41.2029H158.483C158.637 41.2029 158.74 41.1503 158.792 41.0978C158.843 41.0452 158.894 40.9401 158.894 40.835C158.894 40.7299 158.843 40.6248 158.792 40.5722C158.74 40.5197 158.637 40.4671 158.535 40.4671H157.866V41.2029Z" fill="white"></path>
+                            </svg>
+                            <p class="footer-description mt-3">
+                                Chúng tôi mang đến giấc ngủ chất lượng với những sản phẩm nệm, chăn ga gối cao cấp, được thiết kế đặc biệt cho sự thoải mái tối đa.
+                            </p>
+                            <div class="social-links">
+                                <a href="#" class="social-link"><i class='bx bxl-facebook'></i></a>
+                                <a href="https://www.instagram.com/hdhquan/" class="social-link"><i class='bx bxl-instagram'></i></a>
+                                <a href="#" class="social-link"><i class='bx bxl-youtube'></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="footer-contact">
+                            <h5 class="footer-title">Liên hệ</h5>
+                            <div class="contact-info">
+                                <div class="contact-item">
+                                    <i class='bx bx-phone'></i>
+                                    <div>
+                                        <span>Hotline tư vấn:</span>
+                                        <a href="tel:18002092">1800 2092</a>
+                                    </div>
+                                </div>
+                                <div class="contact-item">
+                                    <i class='bx bx-support'></i>
+                                    <div>
+                                        <span>Hỗ trợ khách hàng:</span>
+                                        <a href="tel:18002092">1800 2092</a>
+                                    </div>
+                                </div>
+                                <div class="contact-item">
+                                    <i class='bx bx-envelope'></i>
+                                    <div>
+                                        <span>Email:</span>
+                                        <a href="mailto:trainghiem@vuanem.com">trainghiem@vuanem.com</a>
+                                    </div>
+                                </div>
+                                <div class="contact-item">
+                                    <i class='bx bx-map'></i>
+                                    <div>
+                                        <span>Địa chỉ:</span>
+                                        <span>Tầng 7, tòa nhà Nhật An, 30D phố Kim Mã Thượng, phường Cống Vị, quận Ba Đình, HN.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-12 mb-4">
+                        <div class="footer-map">
+                            <h5 class="footer-title">Vị trí cửa hàng</h5>
+                            <div class="map-container">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.062527615134!2d106.62637497488295!3d10.806523089344092!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752be2853ce7cd%3A0x4111b3b3c2aca14a!2zMTQwIMSQLiBMw6ogVHLhu41uZyBU4bqlbiwgVMOieSBUaOG6oW5oLCBUw6JuIFBow7osIEjhu5MgQ2jDrSBNaW5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1733650105237!5m2!1svi!2s" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col">
-                    <ul>
-                        <li>
-                            <p>Hotline tư vấn sản phẩm:<a href="#">1800 2092</a></p>
-                        </li>
-                        <li>
-                            <p>Hotline hậu mãi, CSKH:<a href="#">1800 2092</a></p>
-                        </li>
-                        <li>
-                            <p>Email: <span>trainghiem@vuanem.com</span></p>
-                        </li>
-                    </ul>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <p class="copyright">© 2024 Công ty cổ phần Vua Nệm. Tất cả quyền được bảo lưu.</p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <p class="business-license">Mã số doanh nghiệp: 0107968516</p>
+                    </div>
                 </div>
-                <div class="col">
-                    <h4>Địa chỉ cửa hàng</h4>
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.062527615134!2d106.62637497488295!3d10.806523089344092!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752be2853ce7cd%3A0x4111b3b3c2aca14a!2zMTQwIMSQLiBMw6ogVHLhu41uZyBU4bqlbiwgVMOieSBUaOG6oW5oLCBUw6JuIFBow7osIEjhu5MgQ2jDrSBNaW5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1733650105237!5m2!1svi!2s" width="450" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-            </section>
-            <div class="row">
-                <p class="text-center" style="color: rgb(83, 83, 83);">Copyright © 2024 Công ty cổ phần Vua Nệm. Mã số doanh nghiệp 0107968516 do Sở Kế hoạch Đầu tư Hà Nội cấp lần 1 ngày 18/8/2017</p>
             </div>
         </div>
     </footer>
@@ -148,146 +231,506 @@
 </html>
 
 <style>
-    /*Header*/
+    * {
+        box-sizing: border-box;
+    }
+    
     :root {
         --primary-color: #2d2e7f;
-        --second-primary-color: #f6a733;
+        --secondary-color: #f6a733;
+        --accent-color: #4f46e5;
+        --text-dark: #1f2937;
+        --text-light: #6b7280;
+        --bg-light: #f8fafc;
+        --border-color: #e5e7eb;
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        --border-radius: 12px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* Custom styling for the navbar Nav-top */
-    header {
-        background: #fff;
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        line-height: 1.6;
+        color: var(--text-dark);
+        margin: 0;
+        padding: 0;
     }
 
+    /* Header Styles */
     .nav-top {
-        border-bottom: 1px solid rgb(76, 76, 76);
-        background: #fff;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border-color);
+        min-height: 70px;
+        transition: var(--transition);
     }
 
-    .headder-main {
-        height: fit-content;
-        background-color: white;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        z-index: 999;
-    }
-
-    .logo {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-    }
-
-    .group-item {
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-    }
-
-    .group-item .item {
-        display: flex;
-        align-items: center;
-    }
-
-    .group-item a {
-        text-align: center;
-        font-size: 14px;
-        font-weight: 500;
-        color: var(--primary-color);
+    .nav-link-top {
+        color: var(--text-dark);
         text-decoration: none;
-    }
-
-    .group-item > .item > a > i {
-        font-size: 25px;
-    }
-
-    /* Custom styling for the navbar Nav-bot */
-    .nav-bot {
-        margin-top: 50px;
-        padding: 5px 0;
-    }
-
-    .nav-link {
-        color: var(--primary-color);
         font-weight: 500;
-        &:hover
-        color: var(--second-primary-color);
+        font-size: 14px;
+        transition: var(--transition);
+        padding: 8px 12px;
+        border-radius: 8px;
     }
 
-    /* Dropdown Account Custom */
-    .item .dropdown-toggle {
+    .nav-link-top:hover {
+        color: var(--accent-color);
+        background: rgba(79, 70, 229, 0.1);
+    }
+
+    .icon-wrapper {
+        position: relative;
         display: flex;
         align-items: center;
-        font-size: 14px;
-        font-weight: 500;
-        color: var(--primary-color);
-        text-decoration: none;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: var(--bg-light);
+        transition: var(--transition);
     }
 
-    .item .dropdown-toggle span {
-        margin-left: 5px;
-    }
-
-    .dropdown-menu {
-        background: #fff;
-        border: 1px solid #ddd;
-    }
-
-    .dropdown-menu .dropdown-item {
-        font-size: 14px;
+    .icon-wrapper i {
+        font-size: 18px;
         color: var(--primary-color);
     }
 
-    .dropdown-menu .dropdown-item:hover {
-        background: var(--second-primary-color);
+    .nav-link-top:hover .icon-wrapper {
+        background: rgba(79, 70, 229, 0.1);
+        transform: translateY(-1px);
+    }
+
+    .nav-link-top:hover .icon-wrapper i {
+        color: var(--accent-color);
+    }
+
+    .cart-badge {
+        position: absolute;
+        top: -6px;
+        right: -6px;
+        background: var(--secondary-color);
+        color: white;
+        font-size: 10px;
+        font-weight: 600;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid white;
+    }
+
+    .user-icon {
+        background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+    }
+
+    .user-icon i {
         color: white;
     }
 
-    input::placeholder {
-        font-size: 14px;
+    .logo-link {
+        display: block;
+        transition: var(--transition);
     }
 
-    form i {
+    .logo-img {
+        max-width: 150px;
+        height: auto;
+    }
+
+    .dropdown-toggle-custom {
+        background: transparent;
+        border: none;
+        padding: 4px;
+        color: var(--text-light);
+        font-size: 16px;
+        transition: var(--transition);
+    }
+
+    .dropdown-toggle-custom:hover {
+        color: var(--accent-color);
+        transform: rotate(180deg);
+    }
+
+    .dropdown-menu {
+        position: absolute;
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-lg);
+        padding: 10px;
+        margin-top: 8px;
+        min-width: 200px;
+    }
+
+    .dropdown-item {
+        color: var(--text-dark);
+        padding: 10px 12px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: var(--transition);
+        border: none;
+        background: transparent;
+    }
+
+    .dropdown-item:hover {
+        background: var(--bg-light);
+        color: var(--accent-color);
+    }
+
+    .dropdown-item.text-danger:hover {
+        background: rgba(239, 68, 68, 0.1);
+        color: #ef4444;
+    }
+
+    .dropdown-item.text-primary:hover {
+        background: rgba(59, 130, 246, 0.1);
+        color: #3b82f6;
+    }
+
+    /* Navigation Menu */
+    .nav-bot {
+        background: white;
+        border-bottom: 1px solid var(--border-color);
+        padding: 12px 0;
+    }
+
+    .navbar-toggler {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 8px;
+        transition: var(--transition);
+    }
+
+    .navbar-toggler:hover {
+        background: var(--bg-light);
+        border-color: var(--accent-color);
+    }
+
+    .navbar-toggler:focus {
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    }
+
+    .offcanvas-header {
+        border-bottom: 1px solid var(--border-color);
+        padding: 20px;
+    }
+
+    .offcanvas-title {
         color: var(--primary-color);
+        font-weight: 600;
+        font-size: 18px;
+    }
+
+    .nav-link-menu {
+        color: var(--text-dark);
+        text-decoration: none;
+        font-weight: 500;
+        padding: 12px 16px;
+        border-radius: 8px;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-link-menu:hover {
+        background: var(--bg-light);
+        color: var(--accent-color);
+        transform: translateX(4px);
+    }
+
+    .nav-link-menu i {
+        color: var(--secondary-color);
+        font-size: 18px;
+    }
+
+    /* Search Form */
+    .search-form {
+        width: 100%;
+    }
+
+    .search-input-wrapper {
+        position: relative;
+        width: 100%;
+        background: white;
+        border: 2px solid var(--border-color);
+        border-radius: 50px;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+    }
+
+    .search-input-wrapper:focus-within {
+        border-color: var(--accent-color);
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    }
+
+    .search-input {
+        flex: 1;
+        border: none;
+        outline: none;
+        padding: 12px 16px;
+        font-size: 14px;
+        background: transparent;
+        color: var(--text-dark);
+    }
+
+    .search-input::placeholder {
+        color: var(--text-light);
+    }
+
+    .search-btn {
+        background: var(--accent-color);
+        border: none;
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+        cursor: pointer;
+    }
+
+    .search-btn:hover {
+        background: var(--primary-color);
+    }
+
+    .search-btn i {
+        font-size: 16px;
+    }
+
+    /* Footer Styles */
+    .footer-modern {
+        background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+        color: white;
+        margin-top: 60px;
+    }
+
+    .footer-content {
+        padding: 60px 0 40px;
+    }
+
+    .footer-brand {
+        margin-bottom: 30px;
+    }
+
+    .footer-logo {
+        max-width: 180px;
+        height: auto;
+        margin-bottom: 20px;
+        filter: brightness(1.2);
+    }
+
+    .footer-description {
+        color: #d1d5db;
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 24px;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 12px;
+    }
+
+    .social-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        color: white;
+        text-decoration: none;
+        transition: var(--transition);
+    }
+
+    .social-link i {
         font-size: 24px;
     }
 
-    /* Custom styling for the navbar Content */
-
-    .carousel-inner img {
-        object-fit: cover;
-        height: 400px;
+    .social-link:hover {
+        background: var(--secondary-color);
+        color: white;
+        transform: translateY(-2px);
     }
 
-    .carousel-control-prev,
-    .carousel-control-next {
-        z-index: 1000;
+    .footer-title {
+        color: white;
+        font-weight: 600;
+        font-size: 18px;
+        margin-bottom: 24px;
+        position: relative;
     }
 
-    /* Custom styling for the navbar Footer */
-
-    .footer-top {
-        border-bottom: 1px solid rgb(76, 76, 76);
+    .footer-title::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background: var(--secondary-color);
+        border-radius: 2px;
     }
 
-    ul {
-        list-style: none;
+    .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
     }
 
-    ul li {
-        padding: 5px 0;
-        font-size: 16px;
-        border-bottom: 1px solid #ddd;
+    .contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
     }
 
-    ul li a:hover {
-        color: var(--second-primary-color);
+    .contact-item i {
+        color: var(--secondary-color);
+        font-size: 18px;
+        margin-top: 2px;
+        flex-shrink: 0;
     }
 
-    ul li a, ul li span {
-        color: black;
+    .contact-item div {
+        flex: 1;
+    }
+
+    .contact-item span {
+        color: #d1d5db;
+        font-size: 13px;
+        display: block;
+        margin-bottom: 2px;
+    }
+
+    .contact-item a {
+        color: white;
         text-decoration: none;
-        font-weight: bold;
+        font-weight: 500;
+        transition: var(--transition);
+    }
+
+    .contact-item a:hover {
+        color: var(--secondary-color);
+    }
+
+    .map-container {
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        height: 200px;
+        box-shadow: var(--shadow-md);
+    }
+
+    .map-container iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+    .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 24px 0;
+    }
+
+    .copyright, .business-license {
+        margin: 0;
+        color: #9ca3af;
+        font-size: 13px;
+    }
+
+    /* Header Flex Layout Fix */
+    .nav-top .container-fluid > .d-flex {
+        flex-wrap: nowrap;
+    }
+    .nav-header-left, .nav-header-right {
+        min-width: 180px;
+    }
+    .nav-header-center {
+        min-width: 0;
+    }
+    @@media (max-width: 992px) {
+        .nav-header-left, .nav-header-right {
+            min-width: 120px;
+        }
+        .logo-img {
+            max-width: 100px;
+        }
+    }
+    @@media (max-width: 768px) {
+        .nav-top .container-fluid > .d-flex {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 8px;
+        }
+        .nav-header-center {
+            justify-content: flex-start !important;
+        }
+        .nav-header-left, .nav-header-right {
+            justify-content: flex-start !important;
+            min-width: 0;
+        }
+    }
+
+    /* Animations */
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .footer-brand, .footer-contact, .footer-map {
+        animation: fadeInUp 0.6s ease-out;
+    }
+
+    /* Scroll Effects */
+    .nav-top {
+        transition: all 0.3s ease;
+    }
+
+    .nav-top.scrolled {
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        box-shadow: var(--shadow-sm);
     }
 </style>
+
+<script>
+    // Add scroll effect to header
+    window.addEventListener('scroll', function() {
+        const navTop = document.querySelector('.nav-top');
+        if (window.scrollY > 50) {
+            navTop.classList.add('scrolled');
+        } else {
+            navTop.classList.remove('scrolled');
+        }
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+</script>
