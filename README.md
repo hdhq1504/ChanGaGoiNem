@@ -29,7 +29,7 @@
 - Quản lý đơn hàng
   - Xem danh sách đơn hàng
   - Cập nhật trạng thái đơn hàng
-  - Xử lý đơn hàng
+  - Duyệt đơn hàng
 - Quản lý người dùng
   - Xem danh sách người dùng
   - Phân quyền người dùng
