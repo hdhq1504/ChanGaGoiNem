@@ -85,7 +85,5 @@ namespace QL_Cua_Hang_Chan_ga_Goi_Nem.Controllers.User_ctl
 
             return View(viewModel);
         }
-
-
     }
 }

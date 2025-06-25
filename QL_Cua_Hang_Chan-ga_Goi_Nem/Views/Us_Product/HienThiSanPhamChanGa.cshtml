@@ -174,53 +174,40 @@
 </div>
 
 <style>
-    .filter-accordion .accordion-item {
-        background: transparent;
-        border: none;
-        box-shadow: none;
+    :root {
+        --text-color: #2d2e7f;
+        --primary-color: #f6a733;
     }
-    .filter-accordion .accordion-button {
-        border-radius: 12px !important;
-        background: #f8fafc !important;
-        color: #2d2e7f !important;
-        font-size: 1.08rem;
+
+    .filter-section {
+        border: 1px solid #e0e0e0;
+        padding-bottom: 12px;
+        margin-bottom: 18px;
+        background: #f8fafc;
+        border-radius: 14px;
+        box-shadow: 0 1px 4px rgba(44, 46, 127, 0.04);
+        padding: 16px 12px 8px 12px;
+    }
+
+    .filter-section h6 {
+        font-size: 1.1rem;
         font-weight: 600;
-        box-shadow: none;
-        padding: 10px 16px;
-        margin-bottom: 2px;
+        color: var(--text-color);
     }
-    .filter-accordion .accordion-button:not(.collapsed) {
-        color: #f6a733 !important;
-        background: #f3f3ff !important;
-    }
-    .filter-accordion .accordion-body {
-        padding: 8px 0 0 0;
-    }
-    .form-check-input:checked {
-        background-color: #2d2e7f;
-        border-color: #2d2e7f;
-    }
-    .form-check-label {
+
+    .filter-section .form-check-label {
         font-size: 1rem;
         color: #444;
-        cursor: pointer;
-        transition: color 0.2s;
     }
-    .form-check-label:hover {
-        color: #2d2e7f;
-    }
+
     .btn-primary {
-        background-color: #2d2e7f;
-        border-color: #2d2e7f;
+        background-color: var(--text-color);
         font-size: 1rem;
         font-weight: bold;
         border-radius: 20px;
         transition: background 0.3s, transform 0.2s;
     }
-    .btn-primary:hover {
-        background: #f6a733;
-        color: #fff;
-    }
+
     .product-card {
         transition: transform 0.3s, box-shadow 0.3s;
         border: none;
@@ -233,48 +220,56 @@
         display: flex;
         flex-direction: column;
     }
+
     .product-card:hover {
         transform: translateY(-6px) scale(1.03);
         box-shadow: 0 8px 24px rgba(44, 46, 127, 0.18);
     }
+
     .product-img {
         width: 100%;
-        height: 200px;
+        height: 300px;
         background: #f3f3ff;
         display: flex;
         align-items: center;
         justify-content: center;
     }
+
     .product-img img {
         max-width: 100%;
         max-height: 100%;
         object-fit: contain;
         border-radius: 8px 8px 0 0;
     }
+
     .card-content {
         padding: 12px 8px 8px 8px;
     }
+
     .name-product {
         font-size: 1.08rem;
         font-weight: 600;
-        color: #2d2e7f;
+        color: var(--text-color);
         margin-bottom: 4px;
         min-height: 44px;
     }
+
     .card-content .text-danger {
         font-size: 1.15rem;
         font-weight: bold;
         color: #e53935 !important;
     }
+
     .card-content .text-muted {
         font-size: 0.95rem;
         margin-left: 8px;
     }
+
     .discount-label {
         position: absolute;
         top: 12px;
         right: 12px;
-        background: #f6a733;
+        background: var(--primary-color);
         color: #fff;
         font-size: 0.9rem;
         font-weight: bold;
@@ -283,15 +278,85 @@
         box-shadow: 0 2px 6px rgba(44, 46, 127, 0.10);
         z-index: 2;
     }
+
+    .expandable-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s;
+    }
+
+    .expandable-content.active {
+        max-height: 500px;
+    }
+
+    .toggle-button {
+        background: none;
+        border: none;
+        color: var(--text-color);
+        cursor: pointer;
+    }
+
+    .toggle-button i {
+        font-size: 1.2rem;
+        transition: transform 0.3s;
+    }
+
+    .toggle-button i.bx-chevron-up {
+        transform: rotate(180deg);
+    }
+
+    .filter-accordion .accordion-item {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+    }
+
+    .filter-accordion .accordion-button {
+        border-radius: 12px !important;
+        background: #f8fafc !important;
+        color: var(--text-color) !important;
+        font-size: 1.08rem;
+        font-weight: 600;
+        box-shadow: none;
+        padding: 10px 16px;
+        margin-bottom: 2px;
+    }
+
+    .filter-accordion .accordion-button:not(.collapsed) {
+        color: var(--primary-color) !important;
+        background: #f3f3ff !important;
+    }
+
+    .filter-accordion .accordion-body {
+        padding: 8px 0 0 0;
+    }
+
+    .form-check-input:checked {
+        background-color: var(--text-color);
+        border-color: var(--text-color);
+    }
+
+    .form-check-label {
+        font-size: 1rem;
+        color: #444;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+
+    .form-check-label:hover {
+        color: var(--text-color);
+    }
+
     @@media (max-width: 991px) {
-        .img-top img {
+        .img-top {
             min-height: 120px;
             height: 120px;
-            border-radius: 20px;
         }
+
         .product-img {
-            height: 120px;
+            height: 100%;
         }
+
         .product-card {
             min-height: 260px;
         }

@@ -258,6 +258,5 @@ namespace QL_Cua_Hang_Chan_ga_Goi_Nem.Controllers
             ViewBag.SuccessMessage = "Thông tin đã được cập nhật thành công.";
             return RedirectToAction("ThongTinTaiKhoan"); // Hiển thị lại thông tin đã cập nhật
         }
-
     }
 }

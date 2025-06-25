@@ -346,10 +346,5 @@ namespace QL_Cua_Hang_Chan_ga_Goi_Nem.Controllers.Admin_ctl
 
             return RedirectToAction("SanPhamKhuyenMai", new { khuyenMaiId });
         }
-
     }
-
-
 }
-
-

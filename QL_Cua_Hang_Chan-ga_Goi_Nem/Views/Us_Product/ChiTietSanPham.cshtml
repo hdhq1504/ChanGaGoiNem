@@ -6,7 +6,7 @@
                             && DateTime.Now >= Model.NgayBatDauKhuyenMai && DateTime.Now <= Model.NgayKetThucKhuyenMai;
 }
 <div class="container py-3">
-    <a href="javascript:history.back()" class="btn btn-link px-0 mb-2" style="font-size: 1.5rem; color: #f6a733; text-decoration: none;">
+    <a href="javascript:history.back()" class="btn btn-link px-0 mb-2" style="font-size: 20px; color: #f6a733; text-decoration: none;">
         <i class='bx bx-chevron-left'></i> Quay lại
     </a>
     <div class="row g-4 align-items-start">
@@ -17,7 +17,7 @@
                     {
                         var hinhAnh = Model.DanhSachHinhAnh[i];
                         <div class="carousel-item @(i == 0 ? "active" : "")">
-                            <img class="w-100 d-block" style="max-height: 400px; object-fit: contain; background: #f3f3ff; border-radius: 16px;" src="~/Content/Hinh_Anh/@hinhAnh" alt="@hinhAnh">
+                            <img class="w-100 d-block" style="object-fit: contain; background: #f3f3ff; border-radius: 16px;" src="~/Content/Hinh_Anh/@hinhAnh" alt="@hinhAnh">
                         </div>
                     }
                 </div>
@@ -32,7 +32,7 @@
             </div>
         </div>
         <div class="col-12 col-md-6">
-            <h2 class="fw-bold mb-2 text-primary">@Model.TenSanPham</h2>
+            <h2 class="fw-bold mb-2">@Model.TenSanPham</h2>
             <div class="mb-3">
                 <span class="fs-2 fw-bold text-danger">@Model.GiaKhuyenMai.ToString("N0") <small style="font-size: 16px;">đ</small></span>
                 @if (Model.GiaKhuyenMai != Model.Gia)
@@ -124,9 +124,11 @@
         background: #f3f3ff;
         border-radius: 16px;
     }
+
     .carousel-inner img {
         border-radius: 16px;
     }
+
     .btn-primary, .btn-primary:focus {
         background-color: #2d2e7f;
         border-color: #2d2e7f;
@@ -134,22 +136,26 @@
         font-weight: 600;
         transition: background 0.3s, transform 0.2s;
     }
+
     .btn-outline-primary {
         border-color: #2d2e7f;
         color: #2d2e7f;
         background: #fff;
         font-weight: 600;
     }
+
     .btn-outline-primary:hover, .btn-outline-primary.active {
         background: #f6a733;
         color: #fff;
         border-color: #f6a733;
     }
+
     .quantity-group {
         border: 1px solid #ccc;
         border-radius: 8px;
         background: #f8fafc;
     }
+
     .quantity-input {
         width: 60px;
         text-align: center;
@@ -158,6 +164,7 @@
         font-size: 1.1rem;
         font-weight: 500;
     }
+    
     .btn-cart {
         font-size: 1.1rem;
         font-weight: 600;
@@ -167,17 +174,20 @@
         border-radius: 20px;
         transition: background 0.3s, color 0.3s;
     }
+
     .btn-cart:hover {
         background: #f6a733;
         color: #fff;
         border-color: #f6a733;
     }
+
     .badge.bg-warning {
         background: #f6a733 !important;
         color: #2d2e7f !important;
         font-size: 1rem;
         font-weight: 600;
     }
+
     @@media (max-width: 991px) {
         .carousel-inner img {
             max-height: 220px;

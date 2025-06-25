@@ -78,6 +78,5 @@ namespace QL_Cua_Hang_Chan_ga_Goi_Nem.Controllers.User_ctl
             // Trả dữ liệu về view
             return View(model);
         }
-
     }
 }

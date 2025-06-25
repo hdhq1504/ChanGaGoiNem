@@ -186,6 +186,11 @@
 </script>
 
 <style>
+    :root {
+        --text-color: #2d2e7f;
+        --primary-color: #f6a733;
+    }
+
     .filter-section {
         border: 1px solid #e0e0e0;
         padding-bottom: 12px;
@@ -199,7 +204,7 @@
     .filter-section h6 {
         font-size: 1.1rem;
         font-weight: 600;
-        color: #2d2e7f;
+        color: var(--text-color);
     }
 
     .filter-section .form-check-label {
@@ -208,17 +213,11 @@
     }
 
     .btn-primary {
-        background-color: #2d2e7f;
-        border-color: #2d2e7f;
+        background-color: var(--text-color);
         font-size: 1rem;
         font-weight: bold;
         border-radius: 20px;
         transition: background 0.3s, transform 0.2s;
-    }
-
-    .btn-primary:hover {
-        background: #f6a733;
-        color: #fff;
     }
 
     .product-card {
@@ -262,7 +261,7 @@
     .name-product {
         font-size: 1.08rem;
         font-weight: 600;
-        color: #2d2e7f;
+        color: var(--text-color);
         margin-bottom: 4px;
         min-height: 44px;
     }
@@ -282,7 +281,7 @@
         position: absolute;
         top: 12px;
         right: 12px;
-        background: #f6a733;
+        background: var(--primary-color);
         color: #fff;
         font-size: 0.9rem;
         font-weight: bold;
@@ -305,7 +304,7 @@
     .toggle-button {
         background: none;
         border: none;
-        color: #2d2e7f;
+        color: var(--text-color);
         cursor: pointer;
     }
 
@@ -327,7 +326,7 @@
     .filter-accordion .accordion-button {
         border-radius: 12px !important;
         background: #f8fafc !important;
-        color: #2d2e7f !important;
+        color: var(--text-color) !important;
         font-size: 1.08rem;
         font-weight: 600;
         box-shadow: none;
@@ -336,7 +335,7 @@
     }
 
     .filter-accordion .accordion-button:not(.collapsed) {
-        color: #f6a733 !important;
+        color: var(--primary-color) !important;
         background: #f3f3ff !important;
     }
 
@@ -345,8 +344,8 @@
     }
 
     .form-check-input:checked {
-        background-color: #2d2e7f;
-        border-color: #2d2e7f;
+        background-color: var(--text-color);
+        border-color: var(--text-color);
     }
 
     .form-check-label {
@@ -357,7 +356,7 @@
     }
 
     .form-check-label:hover {
-        color: #2d2e7f;
+        color: var(--text-color);
     }
 
     @@media (max-width: 991px) {
@@ -367,7 +366,7 @@
         }
 
         .product-img {
-            height: 120px;
+            height: 100%;
         }
 
         .product-card {

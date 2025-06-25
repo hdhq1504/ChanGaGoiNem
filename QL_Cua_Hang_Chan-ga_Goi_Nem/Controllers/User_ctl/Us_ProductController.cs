@@ -198,7 +198,7 @@ namespace QL_Cua_Hang_Chan_ga_Goi_Nem.Controllers.User_ctl
             if (MauSac != null && MauSac.Length > 0)
             {
                 query = query.Where(sp => db.chi_tiet_san_phams
-                                              .Where(ctsp => ctsp.san_pham_id == sp.san_pham_id)    
+                                              .Where(ctsp => ctsp.san_pham_id == sp.san_pham_id)
                                               .Any(ctsp => KichThuoc.Contains(ctsp.mau_sac)));
             }
 
@@ -810,11 +810,5 @@ namespace QL_Cua_Hang_Chan_ga_Goi_Nem.Controllers.User_ctl
                 Console.WriteLine("Lỗi khi gửi email: " + ex.Message); // In lỗi ra console để dễ dàng kiểm tra
             }
         }
-
-
-
-
-
-
     }
 }

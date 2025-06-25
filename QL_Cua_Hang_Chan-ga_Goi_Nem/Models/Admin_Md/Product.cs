@@ -56,11 +56,4 @@ namespace QL_Cua_Hang_Chan_ga_Goi_Nem.Models.Admin_Md
         public decimal TongTien { get; set; }
         public string TrangThai { get; set; }
     }
-
-
-
-
-
-
-
 }

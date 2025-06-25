@@ -21,29 +21,28 @@
                         <div class="product-img mb-2">
                             <img style="width: 100%; height: 100%;" src="~/Content/Hinh_Anh/@product.HinhAnh" alt="@product.HinhAnh">
                         </div>
-                        <div class="p-3 card-content">
-                            <div class="d-flex align-items-center">
-                                <span>@product.DanhGiaTrungBinh/5</span>
-                                <i class='bx bxs-star text-warning ms-1'></i>
-                                <span>(@product.SoLuongDanhGia)</span>
+                        <div class="p-3 card-content flex-grow-1 d-flex flex-column justify-content-between">
+                                <div class="d-flex align-items-center mb-1">
+                                    <span class="fw-semibold">@product.DanhGiaTrungBinh/5</span>
+                                    <i class='bx bxs-star text-warning ms-1'></i>
+                                    <span class="text-muted ms-1">(@product.SoLuongDanhGia)</span>
+                                </div>
+                                <p class="fw-bold mt-2 name-product">@product.TenSanPham</p>
+                                <span class="text-danger fw-bold fs-5">
+                                    @if (product.GiaKhuyenMai == product.Gia)
+                                    {
+                                        @product.GiaKhuyenMai.ToString("N0")
+                                    }
+                                    else
+                                    {
+                                        @product.GiaKhuyenMai.ToString("N0")
+                                        <span class="text-muted text-decoration-line-through small ms-2">
+                                            @product.Gia.ToString("N0")
+                                        </span>
+                                    }
+                                </span>
+                                <p class="mt-1 mb-0 text-secondary small"><i class='bx bx-expand'></i> @product.SoLuongKichThuoc Kích Thước</p>
                             </div>
-                            <p class="fw-bold mt-2 name-product">@product.TenSanPham</p>
-                            <span class="text-danger fw-bold">
-                                @if (product.GiaKhuyenMai == product.Gia)
-                                {
-                                    @product.GiaKhuyenMai.ToString("N0")
-                                }
-                                else
-                                {
-                                    @product.GiaKhuyenMai.ToString("N0") <!-- Hiển thị giá khuyến mãi -->
-                                    <span class="text-muted text-decoration-line-through small">
-                                        @product.Gia.ToString("N0")<!-- Hiển thị giá gốc, gạch ngang -->
-                                    </span>
-                                }
-                            </span>
-
-                            <p class="mt-1">@product.SoLuongKichThuoc Kích Thước</p>
-                        </div>
                     </div>
                 </div>
             </a>

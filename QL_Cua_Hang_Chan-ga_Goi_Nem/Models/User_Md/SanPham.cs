@@ -101,9 +101,4 @@ namespace QL_Cua_Hang_Chan_ga_Goi_Nem.Models.User_Md
         public decimal Gia { get; set; }
         public decimal TongTien { get; set; }
     }
-
-
-
-
-
 }

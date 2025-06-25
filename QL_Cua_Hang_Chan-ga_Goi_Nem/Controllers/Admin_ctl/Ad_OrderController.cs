@@ -176,10 +176,5 @@ namespace QL_Cua_Hang_Chan_ga_Goi_Nem.Controllers
                 // Có thể thêm log hoặc hiển thị thông báo lỗi
             }
         }
-
-
     }
 }
-
-
-
