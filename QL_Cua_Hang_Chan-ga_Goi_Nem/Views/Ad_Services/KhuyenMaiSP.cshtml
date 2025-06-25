@@ -104,7 +104,7 @@
                     <td>@Html.DisplayFor(modelItem => item.giam_gia) %</td>
                     <td>@Html.DisplayFor(modelItem => item.ngay_tao)</td>
                     <td class="countdown text-center">@Html.Raw(countdownText)</td>
-                    <td class="text-center">
+                    <td class="d-flex align-items-center justify-content-center">
                         <a href="@Url.Action("EditKhuyenMai", new { id = item.khuyen_mai_id })" class="btn btn-sm btn-outline-primary mx-1" title="Sửa">
                             <i class='bx bx-edit'></i>
                         </a>

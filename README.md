@@ -16,13 +16,10 @@
 
 ### 1. Người dùng (User)
 - Đăng ký/Đăng nhập tài khoản
-- Xem danh sách sản phẩm
 - Tìm kiếm sản phẩm
-- Thêm sản phẩm vào giỏ hàng
 - Đặt hàng và thanh toán
 - Theo dõi trạng thái đơn hàng
 - Quản lý thông tin cá nhân
-- Đánh giá sản phẩm
 
 ### 2. Quản trị viên (Admin)
 - Quản lý sản phẩm
@@ -36,7 +33,6 @@
 - Quản lý người dùng
   - Xem danh sách người dùng
   - Phân quyền người dùng
-  - Khóa/mở khóa tài khoản
 - Thống kê và báo cáo
   - Doanh thu
   - Sản phẩm bán chạy
@@ -44,45 +40,43 @@
 
 ## Giao diện
 
-### Giao diện người dùng (User Interface)
-1. **Trang chủ**
-   - Banner quảng cáo
-   - Sản phẩm nổi bật
-   - Danh mục sản phẩm
+### Giao diện người dùng
 
-2. **Trang danh sách sản phẩm**
-   - Bộ lọc sản phẩm
-   - Sắp xếp theo giá/tên
-   - Phân trang
+#### Trang chủ
+![Trang chủ](./QL_Cua_Hang_Chan-ga_Goi_Nem/Content/UI/Home.png)
 
-3. **Trang chi tiết sản phẩm**
-   - Hình ảnh sản phẩm
-   - Thông tin chi tiết
-   - Đánh giá và bình luận
-   - Nút thêm vào giỏ hàng
+#### Đăng nhập/Đăng ký
+![Đăng nhập](./QL_Cua_Hang_Chan-ga_Goi_Nem/Content/UI/SignIn.png)
+![Đăng ký](./QL_Cua_Hang_Chan-ga_Goi_Nem/Content/UI/SignUp.png)
 
-4. **Giỏ hàng và thanh toán**
-   - Danh sách sản phẩm đã chọn
-   - Cập nhật số lượng
-   - Form thông tin thanh toán
+#### Danh sách sản phẩm
+![Danh sách sản phẩm](./QL_Cua_Hang_Chan-ga_Goi_Nem/Content/UI/AdminProducts.png)
 
-### Giao diện Admin (Admin Interface)
-1. **Dashboard**
-   - Thống kê tổng quan
-   - Biểu đồ doanh thu
-   - Đơn hàng mới
+#### Chi tiết sản phẩm
+![Chi tiết sản phẩm](./QL_Cua_Hang_Chan-ga_Goi_Nem/Content/UI/ProductDetails.png)
 
-2. **Quản lý sản phẩm**
-   - Bảng danh sách sản phẩm
-   - Form thêm/sửa sản phẩm
-   - Upload hình ảnh
+#### Giỏ hàng
+![Giỏ hàng](./QL_Cua_Hang_Chan-ga_Goi_Nem/Content/UI/Cart.png)
 
-3. **Quản lý đơn hàng**
-   - Danh sách đơn hàng
-   - Chi tiết đơn hàng
-   - Cập nhật trạng thái
+#### Đơn hàng
+![Đơn hàng của tôi](./QL_Cua_Hang_Chan-ga_Goi_Nem/Content/UI/MyOrder.png)
 
-4. **Quản lý người dùng**
-   - Danh sách người dùng
-   - Phân quyền
-   - Thông tin chi tiết
+#### Chi tiết đơn hàng
+![Chi tiết đơn hàng](./QL_Cua_Hang_Chan-ga_Goi_Nem/Content/UI/OrderDetails.png)
+
+### Giao diện Admin
+
+#### Dashboard doanh thu
+![Doanh thu](./QL_Cua_Hang_Chan-ga_Goi_Nem/Content/UI/AdminRevenue.png)
+
+#### Quản lý sản phẩm
+![Quản lý sản phẩm](./QL_Cua_Hang_Chan-ga_Goi_Nem/Content/UI/AdminProducts.png)
+
+#### Quản lý đơn hàng
+![Quản lý đơn hàng](./QL_Cua_Hang_Chan-ga_Goi_Nem/Content/UI/AdminOrders.png)
+
+#### Quản lý khuyến mãi
+![Quản lý khuyến mãi](./QL_Cua_Hang_Chan-ga_Goi_Nem/Content/UI/AdminDiscounts.png)
+
+#### Quản lý người dùng
+![Quản lý người dùng](./QL_Cua_Hang_Chan-ga_Goi_Nem/Content/UI/AdminUsers.png)

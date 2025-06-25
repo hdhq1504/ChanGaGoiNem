@@ -1,4 +1,5 @@
-﻿@model IEnumerable<QL_Cua_Hang_Chan_ga_Goi_Nem.Models.san_pham>
+﻿@model PagedList.IPagedList<QL_Cua_Hang_Chan_ga_Goi_Nem.Models.san_pham>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Hiển Thị Sản Phẩm";
@@ -106,6 +107,9 @@
                     }
                 </tbody>
             </table>
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            @Html.PagedListPager(Model, page => Url.Action("HienThiSP", new { page, loaiSanPham = Request["loaiSanPham"], thuongHieu = Request["thuongHieu"], searchTerm = Request["searchTerm"] }), new PagedListRenderOptions { Display = PagedListDisplayMode.IfNeeded, MaximumPageNumbersToDisplay = 5 })
         </div>
     </form>
 </div>

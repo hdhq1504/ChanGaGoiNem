@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using QL_Cua_Hang_Chan_ga_Goi_Nem.Models.Admin_Md;
 using System;
+using PagedList;
 
 namespace QL_Cua_Hang_Chan_ga_Goi_Nem.Controllers.Admin_ctl
 {
@@ -16,7 +17,7 @@ namespace QL_Cua_Hang_Chan_ga_Goi_Nem.Controllers.Admin_ctl
         DataDataContext db = new DataDataContext();
 
         // Hiển thị danh sách sản phẩm
-        public ActionResult HienThiSP(string loaiSanPham, string thuongHieu, string searchTerm)
+        public ActionResult HienThiSP(string loaiSanPham, string thuongHieu, string searchTerm, int? page)
         {
             var sanPhams = db.san_phams.AsQueryable();
 
@@ -43,7 +44,9 @@ namespace QL_Cua_Hang_Chan_ga_Goi_Nem.Controllers.Admin_ctl
             ViewBag.ThuongHieu = db.san_phams.Select(sp => sp.thuong_hieu).Distinct().ToList();
             ViewBag.SearchTerm = searchTerm;
 
-            return View(sanPhams.ToList());
+            int pageSize = 6;
+            int pageNumber = page ?? 1;
+            return View(sanPhams.OrderByDescending(sp => sp.san_pham_id).ToPagedList(pageNumber, pageSize));
         }
 
         [HttpPost]
